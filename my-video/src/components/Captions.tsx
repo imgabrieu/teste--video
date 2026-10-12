@@ -2,11 +2,13 @@ import React, { useMemo } from "react";
 import { AbsoluteFill, Sequence } from "remotion";
 import { CAPTION, CANVAS, COLORS, SAFE } from "../config/theme";
 import { buildPages } from "../lib/captionPages";
+import { useEdit } from "../lib/EditContext";
 import { AnimatedCaption } from "./AnimatedCaption";
 
 /** Soft navy scrim at the bottom keeps white captions legible over the bright window/coat; captions sit above the social-UI safe area. */
 export const Captions: React.FC = () => {
-  const pages = useMemo(buildPages, []);
+  const { cfg, tl } = useEdit();
+  const pages = useMemo(() => buildPages(cfg, tl), [cfg, tl]);
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div

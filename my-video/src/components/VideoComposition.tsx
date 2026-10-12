@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { AbsoluteFill, Sequence, useDelayRender } from "remotion";
-import { MOTIONS, SFX } from "../config/edit";
+import type { EditConfig } from "../edits/types";
+import { EditProvider, useEdit } from "../lib/EditContext";
 import { loadFonts } from "../lib/fonts";
-import { OUTRO_FRAMES, SPEECH_FRAMES } from "../lib/timeline";
 import { Captions } from "./Captions";
 import { LogoOutro } from "./LogoOutro";
 import { MotionGraphic } from "./MotionGraphic";
 import { SoundEffect } from "./SoundEffect";
 import { SpeechVideo } from "./SpeechVideo";
 
-export const VideoComposition: React.FC = () => {
+const Inner: React.FC = () => {
+  const { cfg, tl } = useEdit();
+  const { speechFrames: SPEECH_FRAMES, outroFrames: OUTRO_FRAMES } = tl;
   const { delayRender, continueRender } = useDelayRender();
   const [handle] = useState(() => delayRender("Loading Poppins"));
   useEffect(() => {
@@ -20,13 +22,13 @@ export const VideoComposition: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       <SpeechVideo />
-      {MOTIONS.map((m) => (
+      {cfg.motions.map((m) => (
         <MotionGraphic key={m.id} spec={m} />
       ))}
       <Sequence from={0} durationInFrames={outroFrom + 8}>
         <Captions />
       </Sequence>
-      {SFX.map((s) => (
+      {cfg.sfx.map((s) => (
         <SoundEffect key={s.id} file={s.file} at={s.at} volume={s.volume} />
       ))}
       <Sequence from={outroFrom} durationInFrames={OUTRO_FRAMES + 12}>
@@ -37,3 +39,9 @@ export const VideoComposition: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+export const VideoComposition: React.FC<{ edit: EditConfig }> = ({ edit }) => (
+  <EditProvider cfg={edit}>
+    <Inner />
+  </EditProvider>
+);

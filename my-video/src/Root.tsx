@@ -1,10 +1,27 @@
 import React from "react";
 import { Composition } from "remotion";
 import { VideoComposition } from "./components/VideoComposition";
-import { FPS } from "./config/edit";
 import { CANVAS } from "./config/theme";
-import { TOTAL_FRAMES } from "./lib/timeline";
+import { EDIT1 } from "./edits/edit1";
+import { EDIT2 } from "./edits/edit2";
+import { FPS } from "./edits/types";
+import { createTimeline } from "./lib/timeline";
+
+const EDITS = [EDIT1, EDIT2];
 
 export const RemotionRoot: React.FC = () => (
-  <Composition id="Edit" component={VideoComposition} durationInFrames={TOTAL_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+  <>
+    {EDITS.map((edit) => (
+      <Composition
+        key={edit.id}
+        id={edit.id}
+        component={VideoComposition}
+        defaultProps={{ edit }}
+        durationInFrames={createTimeline(edit).totalFrames}
+        fps={FPS}
+        width={CANVAS.width}
+        height={CANVAS.height}
+      />
+    ))}
+  </>
 );

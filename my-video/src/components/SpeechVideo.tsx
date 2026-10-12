@@ -1,8 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Freeze, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
-import { VIDEO_FILE } from "../config/edit";
 import { ZOOM } from "../config/theme";
-import { LAST_SOURCE_FRAME, OUTRO_FRAMES, SEGMENTS, SPEECH_FRAMES } from "../lib/timeline";
+import { useEdit } from "../lib/EditContext";
 
 const FADE = 2; // frames of audio micro-fade at every cut (cuts sit in silences) to avoid clicks
 const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
@@ -28,7 +27,9 @@ const SegmentClip: React.FC<{ src: string; index: number; trimBefore: number; tr
 
 /** The original footage cut into segments, each with a slow, subtle punch-in that alternates per cut (this also masks the jump cuts). */
 export const SpeechVideo: React.FC = () => {
-  const src = staticFile(VIDEO_FILE);
+  const { cfg, tl } = useEdit();
+  const { segments: SEGMENTS, speechFrames: SPEECH_FRAMES, outroFrames: OUTRO_FRAMES, lastSourceFrame: LAST_SOURCE_FRAME } = tl;
+  const src = staticFile(cfg.videoFile);
   const last = SEGMENTS[SEGMENTS.length - 1];
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>

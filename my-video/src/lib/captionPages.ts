@@ -1,7 +1,6 @@
 import { CAPTION } from "../config/theme";
-import { FPS } from "../config/edit";
-import { CAPTION_WORDS } from "../data/captionWords";
-import { SPEECH_FRAMES, srcToOut } from "./timeline";
+import { FPS, EditConfig } from "../edits/types";
+import type { Timeline } from "./timeline";
 
 export type PageWord = { text: string; frame: number; hl: boolean };
 export type CaptionPage = { from: number; to: number; words: PageWord[] };
@@ -11,10 +10,11 @@ const endsClause = (t: string) => /[,;:]$/.test(t);
 const isShort = (t: string) => t.replace(/[^\p{L}\p{N}%]/gu, "").length <= 2;
 
 /** Groups words into short, readable pages (2-3 words), breaking on punctuation. */
-export const buildPages = (): CaptionPage[] => {
+export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
+  const { srcToOut, speechFrames: SPEECH_FRAMES } = tl;
   const groups: { t: string; s: number; hl?: boolean }[][] = [];
   let cur: typeof groups[number] = [];
-  for (const w of CAPTION_WORDS) {
+  for (const w of cfg.words) {
     cur.push(w);
     const chars = cur.map((x) => x.t).join(" ").length;
     const last = w.t;

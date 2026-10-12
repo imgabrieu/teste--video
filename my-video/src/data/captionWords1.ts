@@ -1,6 +1,6 @@
 // Caption words with SOURCE-video timestamps (seconds). Edit text freely; `hl` = highlighted (navy chip).
 // Transcript: Parakeet-TDT v3 (token timestamps), proper nouns cross-checked with Whisper-small, onsets snapped to audio energy.
-export type CaptionWord = { t: string; s: number; hl?: boolean };
+import type { CaptionWord } from "../edits/types";
 
 export const CAPTION_WORDS: CaptionWord[] = [
   { t: "É", s: 0.20 },
