@@ -59,8 +59,8 @@ export const ZOOM = {
 
 export const LOGO = {
   /** Replace the file in /public/logo (keep the name) or point this to your own file. SVG or PNG (white/transparent works best). */
-  file: "logo/LOGO_PLACEHOLDER.svg",
-  width: 380,
+  file: "logo/capitech.png",
+  width: 800,
   outroSeconds: 1.8,
-  overlayOpacity: 0.88,
+  overlayOpacity: 0.93,
 } as const;
