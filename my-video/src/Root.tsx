@@ -6,6 +6,7 @@ import { EDIT1 } from "./edits/edit1";
 import { EDIT2 } from "./edits/edit2";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
+import { Brum, BRUM_TOTAL } from "./brum/Brum";
 
 const EDITS = [EDIT1, EDIT2];
 
@@ -23,5 +24,6 @@ export const RemotionRoot: React.FC = () => (
         height={CANVAS.height}
       />
     ))}
+    <Composition id="Brum" component={Brum} durationInFrames={BRUM_TOTAL} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );
