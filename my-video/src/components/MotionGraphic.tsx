@@ -3,6 +3,11 @@ import { Sequence } from "remotion";
 import type { MotionSpec } from "../edits/types";
 import { useEdit } from "../lib/EditContext";
 import { BubbleGraphic } from "./graphics/BubbleGraphic";
+import { BehindGraphic } from "./graphics/BehindGraphic";
+import { DevicesGraphic } from "./graphics/DevicesGraphic";
+import { FibersGraphic } from "./graphics/FibersGraphic";
+import { MatrixGraphic } from "./graphics/MatrixGraphic";
+import { ReduceGraphic } from "./graphics/ReduceGraphic";
 import { ChipsGraphic } from "./graphics/ChipsGraphic";
 import { GrowthGraphic } from "./graphics/GrowthGraphic";
 import { KeywordGraphic } from "./graphics/KeywordGraphic";
@@ -21,7 +26,7 @@ export const MotionGraphic: React.FC<{ spec: MotionSpec }> = ({ spec }) => {
   const duration = Math.max(12, srcToOut(spec.to) - from);
   return (
     <Sequence from={from} durationInFrames={duration} layout="none">
-      {spec.kind === "title" && <TitleGraphic text={spec.text} durationInFrames={duration} />}
+      {spec.kind === "title" && <TitleGraphic text={spec.text} logo={spec.logo} durationInFrames={duration} />}
       {spec.kind === "stat" && <StatGraphic a={spec.a} b={spec.b} suffix={spec.suffix} label={spec.label} durationInFrames={duration} />}
       {spec.kind === "thinning" && <ThinningGraphic label={spec.label} durationInFrames={duration} />}
       {spec.kind === "growth" && <GrowthGraphic label={spec.label} durationInFrames={duration} />}
@@ -33,7 +38,22 @@ export const MotionGraphic: React.FC<{ spec: MotionSpec }> = ({ spec }) => {
         <VerdictGraphic durationInFrames={duration} rows={spec.rows.map((r) => ({ frameAt: srcToOut(r.at) - from, ok: r.ok, text: r.text }))} />
       )}
       {spec.kind === "chips" && (
-        <ChipsGraphic label={spec.label} durationInFrames={duration} items={spec.items.map((i) => ({ frameAt: srcToOut(i.at) - from, text: i.text }))} />
+        <ChipsGraphic label={spec.label} compact={spec.compact} durationInFrames={duration} items={spec.items.map((i) => ({ frameAt: srcToOut(i.at) - from, text: i.text }))} />
+      )}
+      {spec.kind === "behind" && <BehindGraphic word={spec.word} person={spec.person} startOut={from} durationInFrames={duration} />}
+      {spec.kind === "fibers" && <FibersGraphic label={spec.label} calmFrame={srcToOut(spec.calmAt) - from} durationInFrames={duration} />}
+      {spec.kind === "devices" && (
+        <DevicesGraphic label={spec.label} durationInFrames={duration} items={spec.items.map((i) => ({ frameAt: srcToOut(i.at) - from, text: i.text, icon: i.icon }))} />
+      )}
+      {spec.kind === "reduce" && (
+        <ReduceGraphic durationInFrames={duration} items={spec.items.map((i) => ({ frameAt: srcToOut(i.at) - from, text: i.text, to: i.to }))} />
+      )}
+      {spec.kind === "matrix" && (
+        <MatrixGraphic
+          cols={spec.cols}
+          durationInFrames={duration}
+          rows={spec.rows.map((r) => ({ label: r.label, cells: r.cells.map((c) => (c ? { frameAt: srcToOut(c.at) - from, ok: c.ok } : null)) }))}
+        />
       )}
       {spec.kind === "stepper" && (
         <StepperGraphic durationInFrames={duration} steps={spec.steps.map((s) => ({ frameAt: srcToOut(s.at) - from, label: s.label, weight: s.weight }))} />

@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, Freeze, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Freeze, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from "remotion";
 import { ZOOM } from "../config/theme";
 import { useEdit } from "../lib/EditContext";
+import { segmentScale } from "../lib/zoom";
 
 const FADE = 2; // frames of audio micro-fade at every cut (cuts sit in silences) to avoid clicks
 const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
@@ -10,8 +11,7 @@ const patternFor = (index: number) => ZOOM.patterns[index % ZOOM.patterns.length
 
 const SegmentClip: React.FC<{ src: string; index: number; trimBefore: number; trimAfter: number; length: number }> = ({ src, index, trimBefore, trimAfter, length }) => {
   const frame = useCurrentFrame();
-  const [a, b] = patternFor(index);
-  const scale = interpolate(frame, [0, Math.max(1, length - 1)], [a, b], { extrapolateRight: "clamp" });
+  const scale = segmentScale(index, frame, length);
   return (
     <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: ZOOM.origin }}>
       <OffthreadVideo

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
-import type { EditConfig } from "../edits/types";
+import { COLORS } from "../config/theme";
+import type { EditConfig, Palette } from "../edits/types";
 import { createTimeline, Timeline } from "./timeline";
 
 type Ctx = { cfg: EditConfig; tl: Timeline };
@@ -15,3 +16,13 @@ export const useEdit = (): Ctx => {
   if (!v) throw new Error("useEdit must be used inside <EditProvider>");
   return v;
 };
+
+const DEFAULT_PALETTE: Palette = { accent: COLORS.white, ink: COLORS.navy, highlightBg: "rgba(255,255,255,0.97)", highlightFg: COLORS.navy };
+
+export const hexToRgba = (hex: string, a: number) => {
+  const h = hex.replace("#", "");
+  const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${a})`;
+};
+
+export const usePalette = (): Palette => useEdit().cfg.palette ?? DEFAULT_PALETTE;

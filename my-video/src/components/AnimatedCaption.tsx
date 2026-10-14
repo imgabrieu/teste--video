@@ -2,9 +2,11 @@ import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { ANIM, CAPTION, COLORS, FONTS } from "../config/theme";
 import type { CaptionPage } from "../lib/captionPages";
+import { usePalette } from "../lib/EditContext";
 
 /** One caption page: words enter one by one (fade + tiny rise + soft spring scale). Highlighted words sit on a white chip with navy text. */
 export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
+  const pal = usePalette();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const life = page.to - page.from;
@@ -46,8 +48,8 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
               transformOrigin: "50% 80%",
               ...(w.hl
                 ? {
-                    background: "rgba(255,255,255,0.97)",
-                    color: COLORS.navy,
+                    background: pal.highlightBg,
+                    color: pal.highlightFg,
                     textShadow: "none",
                     padding: "0 0.28em",
                     borderRadius: 18,
