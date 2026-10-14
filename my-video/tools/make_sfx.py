@@ -55,3 +55,26 @@ th = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-x * 5.5)
 air = lowpass(rng.standard_normal(len(x)), 2500) * np.exp(-x * 9) * 0.15
 save("impact", norm((th + air) * env(len(x), 0.004, 0.2), 0.85))
 print("sfx written to", os.path.abspath(out))
+
+# --- soft, feminine accents for the Livia edit ---
+def bell(freqs, d, decay, amps=None):
+    x = t(d); amps = amps or [1.0] * len(freqs)
+    return sum(a * np.sin(2 * np.pi * f * x) * np.exp(-x * decay * (1 + i * 0.35)) for i, (f, a) in enumerate(zip(freqs, amps)))
+
+# chime: gentle glassy bell (A5 + soft overtones), long tail
+c = bell([880, 1318.5, 1760, 2637], 1.4, 3.2, [1, 0.5, 0.3, 0.12])
+save("chime", norm(c * env(len(c), 0.004, 0.5), 0.7))
+
+# shimmer: three quick rising sparkles
+d = 0.9; sh = np.zeros(int(SR * d))
+for k, (st, f) in enumerate([(0.0, 2093), (0.09, 2637), (0.18, 3136)]):
+    b = bell([f, f * 2.01], d - st, 7.0, [1, 0.35]); sh[int(st * SR):int(st * SR) + len(b)] += b * (0.8 ** k)
+save("shimmer", norm(sh * env(len(sh), 0.002, 0.3), 0.6))
+
+# soft swipe: very light, airy whoosh (quieter, shorter than whoosh)
+d = 0.4; n = int(SR * d); noise = rng.standard_normal(n)
+fc = 900 + 2600 * np.sin(np.linspace(0, np.pi, n)); y = np.zeros(n); lp = 0.0; hp = 0.0
+for i in range(n):
+    a = np.exp(-2 * np.pi * fc[i] / SR); lp = (1 - a) * noise[i] + a * lp
+    hp = 0.99 * hp + 0.01 * lp; y[i] = lp - hp
+save("swipe", norm(y * env(n, 0.14, 0.22), 0.6))

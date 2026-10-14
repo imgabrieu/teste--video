@@ -6,6 +6,7 @@ import { EDIT1 } from "./edits/edit1";
 import { EDIT2 } from "./edits/edit2";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
+import { LIVIA_FRAMES, LiviaComposition } from "./livia/LiviaComposition";
 
 const EDITS = [EDIT1, EDIT2];
 
@@ -23,5 +24,6 @@ export const RemotionRoot: React.FC = () => (
         height={CANVAS.height}
       />
     ))}
+    <Composition id="Livia" component={LiviaComposition} durationInFrames={LIVIA_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );

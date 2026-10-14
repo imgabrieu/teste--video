@@ -14,6 +14,7 @@ export const FONTS = {
   bold: 700,
   semiBold: 600,
   files: [
+    { weight: 500, file: "fonts/poppins-latin-500-normal.woff2" },
     { weight: 700, file: "fonts/poppins-latin-700-normal.woff2" },
     { weight: 600, file: "fonts/poppins-latin-600-normal.woff2" },
   ],
