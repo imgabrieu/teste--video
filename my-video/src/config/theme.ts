@@ -64,3 +64,6 @@ export const LOGO = {
   outroSeconds: 1.8,
   overlayOpacity: 0.93,
 } as const;
+
+/** Master switch for ALL sound effects (whoosh/pop/click…). Off: the audio is the speaker's voice only. */
+export const SFX_ENABLED = false;
