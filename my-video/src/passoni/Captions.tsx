@@ -10,7 +10,8 @@ const ease = Easing.out(Easing.cubic);
 const Page: React.FC<{ page: CaptionPage; onLight: boolean; frame: number }> = ({ page, onLight, frame }) => {
   const local = frame - page.from;
   const len = page.to - page.from;
-  const pageOpacity = interpolate(local, [len - 5, len], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const pageIn = interpolate(local, [0, 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const pageOpacity = pageIn * interpolate(local, [len - 5, len], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const pageScale = interpolate(local, [0, 12], [0.985, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
   const y = onLight ? LAYOUT.openerCaptionY : LAYOUT.captionY;
   return (
@@ -36,7 +37,7 @@ const Page: React.FC<{ page: CaptionPage; onLight: boolean; frame: number }> = (
     >
       {page.words.map((w, i) => {
         const t = frame - w.frame;
-        const o = interpolate(t, [-1, 5], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
+        const o = interpolate(t, [-1, 5], [0.26, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
         const rise = interpolate(t, [-1, 7], [9, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: ease });
         const color = onLight ? (w.hl ? "#8A7860" : PC.ink) : w.hl ? PC.beige : PC.white;
         return (
