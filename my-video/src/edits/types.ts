@@ -40,4 +40,9 @@ export type EditConfig = {
   sfx: SfxSpec[];
   palette?: Palette;
   personClips?: PersonClip[];
+  /** Vertical placement (px on the 1080x1920 canvas) when the framing differs from the default (face high, panels low). */
+  layout?: { motionTop?: number; behindTop?: number };
+  caption?: { fontSize?: number; maxChars?: number; maxWords?: number };
+  /** Closing card. Default: logo only. `cta`: logo + call-to-action text (one entry per line; joined it reads as the full sentence). */
+  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number };
 };

@@ -5,10 +5,11 @@ import { CANVAS } from "./config/theme";
 import { EDIT1 } from "./edits/edit1";
 import { EDIT2 } from "./edits/edit2";
 import { EDIT3 } from "./edits/edit3";
+import { EDIT4 } from "./edits/edit4";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
 
-const EDITS = [EDIT1, EDIT2, EDIT3];
+const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4];
 
 export const RemotionRoot: React.FC = () => (
   <>

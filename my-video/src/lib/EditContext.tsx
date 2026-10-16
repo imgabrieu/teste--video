@@ -26,3 +26,8 @@ export const hexToRgba = (hex: string, a: number) => {
 };
 
 export const usePalette = (): Palette => useEdit().cfg.palette ?? DEFAULT_PALETTE;
+
+export const useLayout = () => {
+  const l = useEdit().cfg.layout;
+  return { motionTop: l?.motionTop, behindTop: l?.behindTop ?? 560 };
+};

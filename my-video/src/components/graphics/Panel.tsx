@@ -1,7 +1,7 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { ANIM, CANVAS, FONTS, MOTION_ZONE, SAFE } from "../../config/theme";
-import { hexToRgba, usePalette } from "../../lib/EditContext";
+import { hexToRgba, useLayout, usePalette } from "../../lib/EditContext";
 
 /** Shared entrance/exit wrapper + navy glass panel for every motion graphic. */
 export const Panel: React.FC<{
@@ -12,8 +12,9 @@ export const Panel: React.FC<{
   width?: number;
   height?: number;
   padding?: string;
-}> = ({ durationInFrames, children, top = MOTION_ZONE.top, left, width = CANVAS.width - SAFE.left * 2, height = MOTION_ZONE.height, padding = "0 48px" }) => {
+}> = ({ durationInFrames, children, top: topProp, left, width = CANVAS.width - SAFE.left * 2, height = MOTION_ZONE.height, padding = "0 48px" }) => {
   const pal = usePalette();
+  const top = topProp ?? useLayout().motionTop ?? MOTION_ZONE.top;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 200, stiffness: 120 }, durationInFrames: 18 });

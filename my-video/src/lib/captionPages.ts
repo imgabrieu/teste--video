@@ -12,6 +12,8 @@ const isShort = (t: string) => t.replace(/[^\p{L}\p{N}%]/gu, "").length <= 2;
 /** Groups words into short, readable pages (2-3 words), breaking on punctuation. */
 export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
   const { srcToOut, speechFrames: SPEECH_FRAMES } = tl;
+  const maxWords = cfg.caption?.maxWords ?? CAPTION.maxWordsPerPage;
+  const maxChars = cfg.caption?.maxChars ?? CAPTION.maxCharsPerPage;
   const groups: { t: string; s: number; hl?: boolean }[][] = [];
   let cur: typeof groups[number] = [];
   for (const w of cfg.words) {
@@ -21,7 +23,7 @@ export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
     if (endsSentence(last) || (endsClause(last) && cur.length >= 2)) {
       groups.push(cur);
       cur = [];
-    } else if (cur.length >= CAPTION.maxWordsPerPage || chars >= CAPTION.maxCharsPerPage) {
+    } else if (cur.length >= maxWords || chars >= maxChars) {
       // never end a page on a dangling article/preposition: carry it over to the next page
       const carry = isShort(last) && cur.length > 1 ? cur.pop() : undefined;
       groups.push(cur);

@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate, OffthreadVideo, Sequence, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { CANVAS, FONTS, ZOOM } from "../../config/theme";
-import { hexToRgba, useEdit, usePalette } from "../../lib/EditContext";
+import { hexToRgba, useEdit, useLayout, usePalette } from "../../lib/EditContext";
 import { segmentScale } from "../../lib/zoom";
 
 /**
@@ -12,6 +12,7 @@ export const BehindGraphic: React.FC<{ word: string; person: string; startOut: n
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const pal = usePalette();
+  const { behindTop } = useLayout();
   const { cfg, tl } = useEdit();
   const clip = cfg.personClips?.find((c) => c.id === person);
 
@@ -28,7 +29,7 @@ export const BehindGraphic: React.FC<{ word: string; person: string; startOut: n
   const scale = segmentScale(seg0.index, startOut + frame - seg0.outStart, seg0.length);
   const clipStart = clip ? clip.fromFrame : 0;
 
-  const size = 214;
+  const size = Math.min(214, Math.floor(960 / (word.length * 0.76)));
   return (
     <AbsoluteFill style={{ opacity: fade }}>
       {/* 1. dim the background so the word reads on the bright wall / TV */}
@@ -36,17 +37,17 @@ export const BehindGraphic: React.FC<{ word: string; person: string; startOut: n
       {/* 2. tech lines + giant word, behind the person */}
       <svg width={CANVAS.width} height={CANVAS.height} style={{ position: "absolute", inset: 0 }}>
         {[0.16, 0.5, 0.84].map((x, i) => (
-          <line key={i} x1={CANVAS.width * x} x2={CANVAS.width * x} y1={300} y2={300 + 860 * line} stroke={pal.accent} strokeWidth={1.5} opacity={0.22} />
+          <line key={i} x1={CANVAS.width * x} x2={CANVAS.width * x} y1={behindTop - 260} y2={behindTop - 260 + (size + 520) * line} stroke={pal.accent} strokeWidth={1.5} opacity={0.22} />
         ))}
-        <line x1={70} x2={70 + (CANVAS.width - 140) * line} y1={1160} y2={1160} stroke={pal.accent} strokeWidth={3} opacity={0.7} />
-        <line x1={70} x2={70 + (CANVAS.width - 140) * line} y1={372} y2={372} stroke={pal.accent} strokeWidth={1.5} opacity={0.45} />
+        <line x1={70} x2={70 + (CANVAS.width - 140) * line} y1={behindTop + size + 80} y2={behindTop + size + 80} stroke={pal.accent} strokeWidth={3} opacity={0.7} />
+        <line x1={70} x2={70 + (CANVAS.width - 140) * line} y1={behindTop - 188} y2={behindTop - 188} stroke={pal.accent} strokeWidth={1.5} opacity={0.45} />
       </svg>
       <div
         style={{
           position: "absolute",
           left: 0,
           width: CANVAS.width,
-          top: 560,
+          top: behindTop,
           textAlign: "center",
           fontFamily: FONTS.family,
           fontWeight: FONTS.bold,

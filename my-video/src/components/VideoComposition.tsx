@@ -4,6 +4,7 @@ import type { EditConfig } from "../edits/types";
 import { EditProvider, useEdit } from "../lib/EditContext";
 import { loadFonts } from "../lib/fonts";
 import { Captions } from "./Captions";
+import { CtaOutro } from "./CtaOutro";
 import { LogoOutro } from "./LogoOutro";
 import { MotionGraphic } from "./MotionGraphic";
 import { SoundEffect } from "./SoundEffect";
@@ -18,24 +19,31 @@ const Inner: React.FC = () => {
     loadFonts().then(() => continueRender(handle));
   }, [handle, continueRender]);
 
-  const outroFrom = SPEECH_FRAMES - 12; // veil starts inside the silent tail of the last word
+  const cta = cfg.outro?.type === "cta";
+  const outroFrom = cta ? SPEECH_FRAMES : SPEECH_FRAMES - 12; // logo veil starts in the silent tail; the CTA card starts only after the last word
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       <SpeechVideo />
       {cfg.motions.map((m) => (
         <MotionGraphic key={m.id} spec={m} />
       ))}
-      <Sequence from={0} durationInFrames={outroFrom + 8}>
+      <Sequence from={0} durationInFrames={cta ? outroFrom : outroFrom + 8}>
         <Captions />
       </Sequence>
       {cfg.sfx.map((s) => (
         <SoundEffect key={s.id} file={s.file} at={s.at} volume={s.volume} />
       ))}
-      <Sequence from={outroFrom} durationInFrames={OUTRO_FRAMES + 12}>
-        <LogoOutro />
+      <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
+        {cta ? <CtaOutro /> : <LogoOutro />}
       </Sequence>
-      <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 4} volume={0.28} />
-      <SoundEffect file="sfx/impact.wav" frame={outroFrom + 14} volume={0.34} />
+      {cta ? (
+        <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={cfg.outro?.sfxVolume ?? 0.1} />
+      ) : (
+        <>
+          <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 4} volume={0.28} />
+          <SoundEffect file="sfx/impact.wav" frame={outroFrom + 14} volume={0.34} />
+        </>
+      )}
     </AbsoluteFill>
   );
 };

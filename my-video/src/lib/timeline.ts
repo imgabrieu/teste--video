@@ -21,7 +21,7 @@ export const createTimeline = (cfg: EditConfig) => {
 
   const last = segments[segments.length - 1];
   const speechFrames = last.outStart + last.length;
-  const outroFrames = Math.round(LOGO.outroSeconds * FPS);
+  const outroFrames = Math.round((cfg.outro?.seconds ?? LOGO.outroSeconds) * FPS);
 
   /** Source seconds -> output frame. Times inside a removed gap snap to the next kept frame. */
   const srcToOut = (sec: number): number => {
