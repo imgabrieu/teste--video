@@ -13,12 +13,12 @@ export const PC = {
 export const LAYOUT = {
   logoTop: 236,
   logoWidth: 204,
-  motionTop: 318,
+  motionTop: 308,
   captionY: 528, // vertical centre of the caption line while over the video
   captionFont: 62,
   openerCaptionY: 1318, // below the before/after card, on the light background
   cardWidth: 940,
-  cardTop: 340,
+  cardTop: 380,
 } as const;
 
 export const SRC = {

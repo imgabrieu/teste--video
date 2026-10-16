@@ -48,23 +48,6 @@ export const Opener: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: PC.bg, opacity: fade }}>
       <div style={{ position: "absolute", inset: 0, opacity: intro, transform: `scale(${settle * lift})`, transformOrigin: "50% 40%" }}>
-        {/* kicker */}
-        <div
-          style={{
-            position: "absolute",
-            top: LAYOUT.cardTop - 70,
-            width: "100%",
-            textAlign: "center",
-            fontFamily: FONTS.family,
-            fontWeight: FONTS.semiBold,
-            fontSize: 22,
-            letterSpacing: "0.42em",
-            paddingLeft: "0.42em",
-            color: PC.taupe,
-          }}
-        >
-          CASO CLÍNICO
-        </div>
         {/* card */}
         <div
           style={{

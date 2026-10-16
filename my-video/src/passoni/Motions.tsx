@@ -34,7 +34,7 @@ export const StatMotion: React.FC = () => {
       <div style={{ ...textBase, top: LAYOUT.motionTop + 22, opacity: labelO, fontWeight: FONTS.semiBold, fontSize: 21, letterSpacing: "0.42em", paddingLeft: "0.42em", color: PC.beige }}>
         DOS CABELOS
       </div>
-      <div style={{ ...textBase, top: LAYOUT.motionTop + 58, opacity: numO, transform: `translateY(${rise}px)`, fontWeight: FONTS.bold, fontSize: 84, lineHeight: 1.1, letterSpacing: "0.01em" }}>
+      <div style={{ ...textBase, top: LAYOUT.motionTop + 54, opacity: numO, transform: `translateY(${rise}px)`, fontWeight: FONTS.bold, fontSize: 76, lineHeight: 1.1, letterSpacing: "0.01em" }}>
         {Math.round(30 * k)}–{Math.round(40 * k)}%
       </div>
     </AbsoluteFill>
