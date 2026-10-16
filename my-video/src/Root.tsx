@@ -10,6 +10,8 @@ import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
 import { Passoni } from "./passoni/Passoni";
 import { TL as PASSONI_TL } from "./passoni/timeline";
+import { Passoni2 } from "./passoni2/Passoni";
+import { TL as PASSONI2_TL } from "./passoni2/timeline";
 
 const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4];
 
@@ -28,5 +30,6 @@ export const RemotionRoot: React.FC = () => (
       />
     ))}
     <Composition id="Passoni" component={Passoni} durationInFrames={PASSONI_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+    <Composition id="Passoni2" component={Passoni2} durationInFrames={PASSONI2_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );
