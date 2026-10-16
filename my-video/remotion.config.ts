@@ -17,6 +17,4 @@ import { existsSync } from "node:fs";
 const HEADLESS = "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
 if (existsSync(HEADLESS)) Config.setBrowserExecutable(HEADLESS);
 Config.setCodec("h264");
-Config.setCrf(14);
-Config.setPixelFormat("yuv420p");
 Config.setAudioBitrate("256k");
