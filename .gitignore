@@ -4,3 +4,4 @@ ruach/audio/lines/*_raw.wav
 __pycache__/
 *.pyc
 ruach/audio/mix.wav
+ruach/RUACH_CONFERENCE_abertura_v1.mp4
