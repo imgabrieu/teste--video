@@ -1,0 +1,6 @@
+ruach/seg/
+ruach/audio/pad_cache.npy
+ruach/audio/lines/*_raw.wav
+__pycache__/
+*.pyc
+ruach/audio/mix.wav
