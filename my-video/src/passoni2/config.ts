@@ -18,7 +18,7 @@ export const LAYOUT = {
   captionY: 1330,
   captionFont: 58,
   cardWidth: 900, // opener hero card (square)
-  cardTop: 300,
+  cardTop: 290,
   motionTop: 318,
   // split screen: photos on top, footage in a rounded panel below
   split: { panelTop: 760, shift: 200, radius: 40, cardWidth: 820, cardTop: 296 },
