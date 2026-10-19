@@ -21,7 +21,8 @@ const Inner: React.FC = () => {
   }, [handle, continueRender]);
 
   const clean = cfg.outro?.type === "clean";
-  const cta = cfg.outro?.type === "cta" || clean;
+  const none = cfg.outro?.type === "none";
+  const cta = cfg.outro?.type === "cta" || clean || none;
   const outroFrom = cta ? SPEECH_FRAMES : SPEECH_FRAMES - 12; // logo veil starts in the silent tail; the CTA card starts only after the last word
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
@@ -35,10 +36,12 @@ const Inner: React.FC = () => {
       {cfg.sfx.map((s) => (
         <SoundEffect key={s.id} file={s.file} at={s.at} volume={s.volume} />
       ))}
-      <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
-        {clean ? <CleanOutro /> : cta ? <CtaOutro /> : <LogoOutro />}
-      </Sequence>
-      {clean ? null : cfg.outro?.type === "cta" ? (
+      {!none && (
+        <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
+          {clean ? <CleanOutro /> : cta ? <CtaOutro /> : <LogoOutro />}
+        </Sequence>
+      )}
+      {clean || none ? null : cfg.outro?.type === "cta" ? (
         <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={cfg.outro.sfxVolume ?? 0.1} />
       ) : (
         <>

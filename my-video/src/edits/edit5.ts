@@ -3,16 +3,16 @@ import type { EditConfig } from "./types";
 
 /**
  * Edit 5 — Dra. Lívia, "não existe receita de bolo para tratar autismo" (88 s). Clean style: white cards, no gradient behind
- * captions, no sound effects (voice only), simple white end card. Cuts only tighten silences (cut lands mid-silence).
+ * captions, no sound effects (voice only), no end card. Cuts only tighten silences (cut lands mid-silence).
  */
 export const EDIT5: EditConfig = {
   id: "Edit5",
   videoFile: "video/original5.mov",
   sourceIn: 0.1,
-  sourceOut: 88.45,
+  sourceOut: 88.5,
   style: "clean",
   caption: { fontSize: 66, maxChars: 20, maxWords: 3 },
-  outro: { type: "clean", text: "Dra. Lívia", seconds: 1.8 },
+  outro: { type: "none" }, // ends right after the last word, no end card
   pauseTrims: [
     { from: 11.61, to: 11.94, keep: 0.16 },
     { from: 16.72, to: 17.36, keep: 0.26 }, // beat between the two "Depende" — kept, just tightened

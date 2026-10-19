@@ -4,7 +4,7 @@ import { CANVAS, FONTS, SAFE } from "../../config/theme";
 
 const INK = "#1F2430";
 const MUTED = "#7B8190";
-const TOP = 960;
+const TOP = 205; // upper band, above the face (just under the Reels UI safe margin)
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const ease = { easing: Easing.out(Easing.cubic), ...clamp } as const;
 
@@ -21,7 +21,7 @@ const Card: React.FC<{ durationInFrames: number; children: React.ReactNode }> = 
         top: TOP,
         width: CANVAS.width - SAFE.left - SAFE.right,
         boxSizing: "border-box",
-        padding: "34px 44px 36px",
+        padding: "22px 40px 24px",
         borderRadius: 28,
         background: "rgba(255,255,255,0.96)",
         boxShadow: "0 10px 36px rgba(20,24,40,0.16)",
@@ -38,7 +38,7 @@ const Card: React.FC<{ durationInFrames: number; children: React.ReactNode }> = 
 };
 
 const Kicker: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div style={{ fontWeight: FONTS.semiBold, fontSize: 26, letterSpacing: "0.16em", textTransform: "uppercase", color: MUTED, marginBottom: 14 }}>{children}</div>
+  <div style={{ fontWeight: FONTS.semiBold, fontSize: 22, letterSpacing: "0.16em", textTransform: "uppercase", color: MUTED, marginBottom: 8 }}>{children}</div>
 );
 
 /** One key phrase with an optional small label above and a thin line that draws in below. */
@@ -48,8 +48,8 @@ export const CleanKeyword: React.FC<{ kicker?: string; text: string; durationInF
   return (
     <Card durationInFrames={durationInFrames}>
       {kicker && <Kicker>{kicker}</Kicker>}
-      <div style={{ fontWeight: FONTS.bold, fontSize: text.length > 20 ? 56 : text.length > 12 ? 68 : 84, lineHeight: 1.08, letterSpacing: "-0.015em" }}>{text}</div>
-      <div style={{ margin: "18px auto 0", height: 3, width: 140 * line, borderRadius: 2, background: INK }} />
+      <div style={{ fontWeight: FONTS.bold, fontSize: text.length > 20 ? 46 : text.length > 12 ? 58 : 70, lineHeight: 1.08, letterSpacing: "-0.015em" }}>{text}</div>
+      <div style={{ margin: "12px auto 0", height: 3, width: 140 * line, borderRadius: 2, background: INK }} />
     </Card>
   );
 };
@@ -66,7 +66,7 @@ export const CleanList: React.FC<{ label: string; items: { frameAt: number; text
           return (
             <React.Fragment key={i}>
               {i > 0 && <span style={{ width: 8, height: 8, borderRadius: 4, background: MUTED, opacity: 0.35 }} />}
-              <span style={{ fontWeight: FONTS.bold, fontSize: 46, lineHeight: 1.25, opacity: 0.22 + 0.78 * p, display: "inline-block" }}>{it.text}</span>
+              <span style={{ fontWeight: FONTS.bold, fontSize: 40, lineHeight: 1.2, opacity: 0.22 + 0.78 * p, display: "inline-block" }}>{it.text}</span>
             </React.Fragment>
           );
         })}

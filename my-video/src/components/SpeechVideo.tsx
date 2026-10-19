@@ -39,13 +39,13 @@ export const SpeechVideo: React.FC = () => {
         </Sequence>
       ))}
       {/* final frame held under the logo outro */}
-      <Sequence from={SPEECH_FRAMES} durationInFrames={OUTRO_FRAMES}>
+      {OUTRO_FRAMES > 0 && <Sequence from={SPEECH_FRAMES} durationInFrames={OUTRO_FRAMES}>
         <AbsoluteFill style={{ transform: `scale(${patternFor(last.index)[1]})`, transformOrigin: ZOOM.origin }}>
           <Freeze frame={0}>
             <OffthreadVideo src={src} trimBefore={LAST_SOURCE_FRAME} muted style={fill} />
           </Freeze>
         </AbsoluteFill>
-      </Sequence>
+      </Sequence>}
     </AbsoluteFill>
   );
 };

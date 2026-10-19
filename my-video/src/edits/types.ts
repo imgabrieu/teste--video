@@ -48,5 +48,5 @@ export type EditConfig = {
   layout?: { motionTop?: number; behindTop?: number };
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number };
   /** Closing card. Default: logo only. `cta`: logo + call-to-action text (one entry per line; joined it reads as the full sentence). */
-  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number } | { type: "clean"; text: string; seconds: number };
+  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number } | { type: "clean"; text: string; seconds: number } | { type: "none" };
 };
