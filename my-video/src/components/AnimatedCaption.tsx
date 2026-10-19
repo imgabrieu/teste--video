@@ -7,7 +7,9 @@ import { useEdit, usePalette } from "../lib/EditContext";
 /** One caption page: words enter one by one (fade + tiny rise + soft spring scale). Highlighted words sit on a white chip with navy text. */
 export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
   const pal = usePalette();
-  const fontSize = useEdit().cfg.caption?.fontSize ?? CAPTION.fontSize;
+  const { cfg } = useEdit();
+  const clean = cfg.style === "clean";
+  const fontSize = cfg.caption?.fontSize ?? CAPTION.fontSize;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const life = page.to - page.from;
@@ -22,12 +24,14 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         bottom: 0,
         textAlign: "center",
         fontFamily: FONTS.family,
-        fontWeight: FONTS.bold,
+        fontWeight: clean ? FONTS.semiBold : FONTS.bold,
         fontSize,
         lineHeight: CAPTION.lineHeight,
         letterSpacing: "-0.01em",
         color: COLORS.white,
-        textShadow: `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
+        // clean: no scrim at all — legibility from a hairline dark edge + soft shadow only
+        textShadow: clean ? "0 1px 3px rgba(16,18,32,0.7), 0 4px 18px rgba(16,18,32,0.6)" : `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
+        ...(clean ? { WebkitTextStroke: "3px rgba(16,18,32,0.42)", paintOrder: "stroke fill" } : {}),
         opacity: exit,
         transform: `translateY(${(1 - exit) * -4}px)`,
       }}
@@ -47,7 +51,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
               opacity: fade,
               transform: `translateY(${rise}px) scale(${scale})`,
               transformOrigin: "50% 80%",
-              ...(w.hl
+              ...(w.hl && clean ? { fontWeight: FONTS.bold } : w.hl
                 ? {
                     background: pal.highlightBg,
                     color: pal.highlightFg,

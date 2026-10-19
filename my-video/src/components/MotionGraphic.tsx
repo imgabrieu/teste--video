@@ -8,6 +8,7 @@ import { DevicesGraphic } from "./graphics/DevicesGraphic";
 import { FibersGraphic } from "./graphics/FibersGraphic";
 import { MatrixGraphic } from "./graphics/MatrixGraphic";
 import { ReduceGraphic } from "./graphics/ReduceGraphic";
+import { CleanKeyword, CleanList } from "./graphics/CleanCard";
 import { ChipsGraphic } from "./graphics/ChipsGraphic";
 import { GrowthGraphic } from "./graphics/GrowthGraphic";
 import { KeywordGraphic } from "./graphics/KeywordGraphic";
@@ -54,6 +55,10 @@ export const MotionGraphic: React.FC<{ spec: MotionSpec }> = ({ spec }) => {
           durationInFrames={duration}
           rows={spec.rows.map((r) => ({ label: r.label, cells: r.cells.map((c) => (c ? { frameAt: srcToOut(c.at) - from, ok: c.ok } : null)) }))}
         />
+      )}
+      {spec.kind === "cleanKeyword" && <CleanKeyword kicker={spec.kicker} text={spec.text} durationInFrames={duration} />}
+      {spec.kind === "cleanList" && (
+        <CleanList label={spec.label} durationInFrames={duration} items={spec.items.map((i) => ({ frameAt: srcToOut(i.at) - from, text: i.text }))} />
       )}
       {spec.kind === "stepper" && (
         <StepperGraphic durationInFrames={duration} steps={spec.steps.map((s) => ({ frameAt: srcToOut(s.at) - from, label: s.label, weight: s.weight }))} />

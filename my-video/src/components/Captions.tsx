@@ -12,7 +12,7 @@ export const Captions: React.FC = () => {
   const pages = useMemo(() => buildPages(cfg, tl), [cfg, tl]);
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
-      <div
+      {cfg.style !== "clean" && <div
         style={{
           position: "absolute",
           left: 0,
@@ -21,7 +21,7 @@ export const Captions: React.FC = () => {
           height: CAPTION.scrimHeight,
           background: `linear-gradient(to top, ${hexToRgba(pal.ink, CAPTION.scrimOpacity)} 0%, ${hexToRgba(pal.ink, CAPTION.scrimOpacity * 0.8)} 40%, ${hexToRgba(pal.ink, CAPTION.scrimOpacity * 0.5)} 62%, ${hexToRgba(pal.ink, 0)} 100%)`,
         }}
-      />
+      />}
       <div
         style={{
           position: "absolute",

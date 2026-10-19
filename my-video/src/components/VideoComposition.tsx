@@ -4,6 +4,7 @@ import type { EditConfig } from "../edits/types";
 import { EditProvider, useEdit } from "../lib/EditContext";
 import { loadFonts } from "../lib/fonts";
 import { Captions } from "./Captions";
+import { CleanOutro } from "./CleanOutro";
 import { CtaOutro } from "./CtaOutro";
 import { LogoOutro } from "./LogoOutro";
 import { MotionGraphic } from "./MotionGraphic";
@@ -19,7 +20,8 @@ const Inner: React.FC = () => {
     loadFonts().then(() => continueRender(handle));
   }, [handle, continueRender]);
 
-  const cta = cfg.outro?.type === "cta";
+  const clean = cfg.outro?.type === "clean";
+  const cta = cfg.outro?.type === "cta" || clean;
   const outroFrom = cta ? SPEECH_FRAMES : SPEECH_FRAMES - 12; // logo veil starts in the silent tail; the CTA card starts only after the last word
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
@@ -34,10 +36,10 @@ const Inner: React.FC = () => {
         <SoundEffect key={s.id} file={s.file} at={s.at} volume={s.volume} />
       ))}
       <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
-        {cta ? <CtaOutro /> : <LogoOutro />}
+        {clean ? <CleanOutro /> : cta ? <CtaOutro /> : <LogoOutro />}
       </Sequence>
-      {cta ? (
-        <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={cfg.outro?.sfxVolume ?? 0.1} />
+      {clean ? null : cfg.outro?.type === "cta" ? (
+        <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={cfg.outro.sfxVolume ?? 0.1} />
       ) : (
         <>
           <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 4} volume={0.28} />

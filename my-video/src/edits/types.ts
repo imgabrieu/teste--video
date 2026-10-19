@@ -21,6 +21,8 @@ export type MotionSpec =
   | { id: string; kind: "fibers"; from: number; to: number; label: string; calmAt: number }
   | { id: string; kind: "devices"; from: number; to: number; label: string; items: { at: number; text: string; icon: "dryer" | "flat" | "curler" }[] }
   | { id: string; kind: "reduce"; from: number; to: number; items: { at: number; text: string; to: number }[] }
+  | { id: string; kind: "cleanKeyword"; from: number; to: number; kicker?: string; text: string }
+  | { id: string; kind: "cleanList"; from: number; to: number; label: string; items: { at: number; text: string }[] }
   | { id: string; kind: "matrix"; from: number; to: number; cols: string[]; rows: { label: string; cells: ({ at: number; ok: boolean } | null)[] }[] };
 
 /** Person cut-out clips (WebM with alpha) covering SOURCE frames [fromFrame, toFrame), used by "behind" motions. */
@@ -39,10 +41,12 @@ export type EditConfig = {
   motions: MotionSpec[];
   sfx: SfxSpec[];
   palette?: Palette;
+  /** "clean": white cards, no scrim/gradient behind captions, simple white end card, voice only. */
+  style?: "clean";
   personClips?: PersonClip[];
   /** Vertical placement (px on the 1080x1920 canvas) when the framing differs from the default (face high, panels low). */
   layout?: { motionTop?: number; behindTop?: number };
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number };
   /** Closing card. Default: logo only. `cta`: logo + call-to-action text (one entry per line; joined it reads as the full sentence). */
-  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number };
+  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number } | { type: "clean"; text: string; seconds: number };
 };

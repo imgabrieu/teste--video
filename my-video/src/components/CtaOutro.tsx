@@ -8,7 +8,8 @@ export const CtaOutro: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const pal = usePalette();
-  const lines = useEdit().cfg.outro?.lines ?? [];
+  const o = useEdit().cfg.outro;
+  const lines = o?.type === "cta" ? o.lines : [];
   const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
   const veil = interpolate(frame, [0, 10], [0, 0.95], clamp);
   const logoP = spring({ frame: frame - 8, fps, config: { damping: 200, stiffness: 110 }, durationInFrames: 22 });
