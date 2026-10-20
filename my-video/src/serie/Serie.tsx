@@ -26,6 +26,8 @@ export type SerieProps = {
   cta: { line1: string; chip: string } | null;
   /** closing screen for the last part: the result once more (photos + numbers) instead of a CTA */
   endResult?: boolean;
+  /** optional override of the footage offset inside the split-screen panel (px) */
+  splitShift?: number;
   /** photo+footage opening (source seconds): the photo pair is on screen while the speaker talks */
   hook: { endSrc: number; stats: { fromSrc: number; toSrc: number; side: "left" | "right"; value: string; label: string }[] } | null;
   tags: { fromSrc: number; toSrc: number; file?: number; kicker: string; text: string }[];
@@ -66,11 +68,12 @@ const Pair: React.FC<{ o: number }> = ({ o }) => {
   );
 };
 
-const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook, tags }) => {
+const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook, tags, splitShift }) => {
   const frame = useCurrentFrame();
   const tl = useMemo(() => createTimeline(part), [part]);
   const pages = useMemo(() => buildPages(part, words, tl), [part, words, tl]);
-  const { panelTop, shift, radius, pairTop, pairWidth, kickerTop } = LAYOUT.split;
+  const { panelTop, radius, pairTop, pairWidth, kickerTop } = LAYOUT.split;
+  const shift = splitShift ?? LAYOUT.split.shift;
 
   // split progress: 1 while the photos are on screen (hook), eases out before the footage returns to full frame
   const hookEnd = hook ? tl.srcToOut(hook.endSrc) : 0;
