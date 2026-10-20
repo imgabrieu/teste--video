@@ -28,8 +28,10 @@ export type SerieProps = {
   endResult?: boolean;
   /** optional override of the footage offset inside the split-screen panel (px) */
   splitShift?: number;
+  /** optional layout overrides for the split-screen hook (px) */
+  splitLayout?: { panelTop?: number; pairWidth?: number; pairTop?: number };
   /** photo+footage opening (source seconds): the photo pair is on screen while the speaker talks */
-  hook: { endSrc: number; stats: { fromSrc: number; toSrc: number; side: "left" | "right"; value: string; label: string }[] } | null;
+  hook: { endSrc: number; framing?: { file: number; table: [number, number][]; target: number }; stats: { fromSrc: number; toSrc: number; side: "left" | "right"; value: string; label: string }[] } | null;
   tags: { fromSrc: number; toSrc: number; file?: number; kicker: string; text: string }[];
 };
 
@@ -50,8 +52,8 @@ const Clip: React.FC<{ file: string; first: boolean; index: number; trimBefore: 
   );
 };
 
-const Pair: React.FC<{ o: number }> = ({ o }) => {
-  const { pairWidth } = LAYOUT.split;
+const Pair: React.FC<{ o: number; width?: number }> = ({ o, width }) => {
+  const pairWidth = width ?? LAYOUT.split.pairWidth;
   const gap = 10;
   const w = (pairWidth - gap) / 2;
   const item = (src: string, label: string) => (
@@ -68,12 +70,25 @@ const Pair: React.FC<{ o: number }> = ({ o }) => {
   );
 };
 
-const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook, tags, splitShift }) => {
+const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook, tags, splitShift, splitLayout }) => {
   const frame = useCurrentFrame();
   const tl = useMemo(() => createTimeline(part), [part]);
   const pages = useMemo(() => buildPages(part, words, tl), [part, words, tl]);
-  const { panelTop, radius, pairTop, pairWidth, kickerTop } = LAYOUT.split;
-  const shift = splitShift ?? LAYOUT.split.shift;
+  const { radius, kickerTop } = LAYOUT.split;
+  const panelTop = splitLayout?.panelTop ?? LAYOUT.split.panelTop;
+  const pairTop = splitLayout?.pairTop ?? LAYOUT.split.pairTop;
+  const pairWidth = splitLayout?.pairWidth ?? LAYOUT.split.pairWidth;
+  // footage offset inside the panel: static, or follows the speaker's head so the whole head always stays inside the panel
+  let shift = splitShift ?? LAYOUT.split.shift;
+  const fr = hook?.framing;
+  if (fr) {
+    const seg = tl.segments.find((sg) => frame >= sg.outStart && frame < sg.outStart + sg.length);
+    if (seg && seg.file === fr.file) {
+      const tSrc = (seg.srcStart + (frame - seg.outStart)) / 30;
+      const i = Math.max(0, Math.min(fr.table.length - 1, Math.round((tSrc - fr.table[0][0]) * 10)));
+      shift = fr.target - fr.table[i][1];
+    } else if (frame >= tl.segments[0].length) shift = fr.target - fr.table[fr.table.length - 1][1];
+  }
 
   // split progress: 1 while the photos are on screen (hook), eases out before the footage returns to full frame
   const hookEnd = hook ? tl.srcToOut(hook.endSrc) : 0;
@@ -111,7 +126,7 @@ const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook,
         <div style={{ position: "absolute", inset: 0, opacity: Math.min(1, s * 1.4), pointerEvents: "none" }}>
           <div style={{ position: "absolute", top: kickerTop, width: "100%", textAlign: "center", fontFamily: FONTS.family, fontWeight: FONTS.semiBold, fontSize: 21, letterSpacing: "0.44em", paddingLeft: "0.44em", color: SC.navy, opacity: labelO }}>{label}</div>
           <div style={{ position: "absolute", top: pairTop + (1 - s) * 14 + pairY, left: left0 }}>
-            <Pair o={pairIn} />
+            <Pair o={pairIn} width={pairWidth} />
           </div>
           {hook.stats.map((st, i) => {
             const a = tl.srcToOut(st.fromSrc);

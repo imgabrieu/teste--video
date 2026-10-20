@@ -1,3 +1,4 @@
+import { HEAD1 } from "./head1";
 import { PART1, PART1_WORDS } from "./part1";
 import { PART2, PART2_WORDS } from "./part2";
 import { PART3, PART3_WORDS } from "./part3";
@@ -10,8 +11,10 @@ export const SERIE1: SerieProps = {
   words: PART1_WORDS,
   label: "PARTE 1",
   cta: { line1: "Quer a parte 2?", chip: "Comente: PARTE 2" },
+  splitLayout: { panelTop: 820, pairWidth: 820, pairTop: 236 },
   hook: {
     endSrc: 13.8,
+    framing: { file: 0, table: HEAD1, target: 865 },
     stats: [
       { fromSrc: 5.0, toSrc: 8.2, side: "left", value: "60%", label: "DE PERDA CAPILAR" },
       { fromSrc: 10.8, toSrc: 13.4, side: "right", value: "quase 100%", label: "RECUPERADO" },
