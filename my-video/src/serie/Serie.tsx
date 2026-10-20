@@ -24,6 +24,8 @@ export type SerieProps = {
   words: Record<number, SerieWord>;
   label: string; // "PARTE 1"
   cta: { line1: string; chip: string } | null;
+  /** closing screen for the last part: the result once more (photos + numbers) instead of a CTA */
+  endResult?: boolean;
   /** photo+footage opening (source seconds): the photo pair is on screen while the speaker talks */
   hook: { endSrc: number; stats: { fromSrc: number; toSrc: number; side: "left" | "right"; value: string; label: string }[] } | null;
   tags: { fromSrc: number; toSrc: number; file?: number; kicker: string; text: string }[];
@@ -64,7 +66,7 @@ const Pair: React.FC<{ o: number }> = ({ o }) => {
   );
 };
 
-const Inner: React.FC<SerieProps> = ({ part, words, label, cta, hook, tags }) => {
+const Inner: React.FC<SerieProps> = ({ part, words, label, cta, endResult, hook, tags }) => {
   const frame = useCurrentFrame();
   const tl = useMemo(() => createTimeline(part), [part]);
   const pages = useMemo(() => buildPages(part, words, tl), [part, words, tl]);
@@ -155,6 +157,41 @@ const Inner: React.FC<SerieProps> = ({ part, words, label, cta, hook, tags }) =>
           <CtaCard line1={cta.line1} chip={cta.chip} />
         </Sequence>
       )}
+      {endResult && (
+        <Sequence from={tl.speechFrames} durationInFrames={TIMING.outroFrames}>
+          <ResultCard />
+        </Sequence>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+/** Last frame of the series: the result once more, quietly. */
+const ResultCard: React.FC = () => {
+  const f = useCurrentFrame();
+  const v0 = TIMING.outroHold;
+  const veil = interpolate(f, [v0, v0 + TIMING.outroVeil], [0, 1], { ...clampX, easing: Easing.inOut(Easing.cubic) });
+  const t = f - (v0 + TIMING.outroVeil - 2);
+  const o = interpolate(t, [0, 18], [0, 1], clampX);
+  const y = interpolate(t, [0, 26], [20, 0], { ...clampX, easing: ease });
+  const o2 = interpolate(t, [16, 34], [0, 1], clampX);
+  const { pairWidth } = LAYOUT.split;
+  const half = (pairWidth - 10) / 2;
+  const left0 = (1080 - pairWidth) / 2;
+  const stat = (cx: number, value: string, lab: string) => (
+    <div style={{ position: "absolute", top: 560 + half + 34, left: cx - 250, width: 500, textAlign: "center", fontFamily: FONTS.family, color: SC.navy, opacity: o2 }}>
+      <div style={{ margin: "0 auto 10px", width: 56, height: 2, background: SC.navy }} />
+      <div style={{ fontWeight: FONTS.bold, fontSize: 62, lineHeight: 1.08 }}>{value}</div>
+      <div style={{ fontWeight: FONTS.semiBold, fontSize: 20, letterSpacing: "0.3em", paddingLeft: "0.3em", color: SC.navySoft, marginTop: 4 }}>{lab}</div>
+    </div>
+  );
+  return (
+    <AbsoluteFill style={{ backgroundColor: SC.white, opacity: veil }}>
+      <div style={{ position: "absolute", top: 560 + (1 - o) * 0 + y, left: left0 }}>
+        <Pair o={o} />
+      </div>
+      {stat(left0 + half / 2, "60%", "DE PERDA CAPILAR")}
+      {stat(left0 + half + 10 + half / 2, "quase 100%", "RECUPERADO")}
     </AbsoluteFill>
   );
 };

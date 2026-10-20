@@ -16,11 +16,12 @@ def quietest(db, a, b, width=6):
     return (best + width / 2) / 100
 
 def start_cut(db, words, k, pre=0.10):
+    """cut in the quietest spot around the word onset (Parakeet onsets can be ~0.1-0.2 s early)"""
     s = words[k]['s']
     prev = words[k - 1]['s'] if k > 0 else s - 1
-    lo = max(prev + 0.12, s - 0.45)
-    c = quietest(db, lo, max(lo, s - 0.03))
-    return round(max(0.0, min(c, s - pre) if s - c < 0.45 else s - pre), 3)
+    lo = max(prev + 0.12, s - 0.35)
+    c = quietest(db, lo, max(lo, s + 0.2))
+    return round(max(0.0, c if c <= s + 0.2 else s - pre), 3)
 
 def end_cut(db, words, k, tail=0.12):
     s = words[k]['s']; nxt = words[k + 1]['s'] if k + 1 < len(words) else s + 2
@@ -31,7 +32,8 @@ def end_cut(db, words, k, tail=0.12):
     end = end if end is not None else s + 0.5
     return round(min(end + tail, nxt - 0.05), 3) if nxt - 0.05 > end else round(end, 3)
 
-def tighten(db, a, b, max_pause=0.85, keep=0.4):
+import os
+def tighten(db, a, b, max_pause=float(os.environ.get('MAXP', 0.85)), keep=float(os.environ.get('KEEP', 0.4))):
     """split [a,b] where an inner silence is longer than max_pause; returns list of (from,to)"""
     quiet = db < -41; out = []; cur = a; i = int(a * 100); iend = int(b * 100)
     while i < iend:

@@ -1,5 +1,6 @@
 import { PART1, PART1_WORDS } from "./part1";
 import { PART2, PART2_WORDS } from "./part2";
+import { PART3, PART3_WORDS } from "./part3";
 import { createTimeline } from "./timeline";
 import type { SerieProps } from "./Serie";
 
@@ -42,3 +43,24 @@ export const SERIE2: SerieProps = {
   ],
 };
 export const SERIE2_FRAMES = createTimeline(PART2).totalFrames;
+
+export const SERIE3: SerieProps = {
+  part: PART3,
+  words: PART3_WORDS,
+  label: "PARTE 3",
+  cta: null,
+  endResult: true,
+  hook: {
+    endSrc: 184.19, // file index 0 (arquivo 02)
+    stats: [
+      { fromSrc: 180.3, toSrc: 184.1, side: "left", value: "60%", label: "DE PERDA CAPILAR" },
+      { fromSrc: 180.3, toSrc: 184.1, side: "right", value: "quase 100%", label: "RECUPERADO" },
+    ],
+  },
+  tags: [
+    { fromSrc: 0.2, toSrc: 4.6, file: 1, kicker: "ETAPA 3", text: "Regenerativa" },
+    { fromSrc: 66.9, toSrc: 71.6, file: 1, kicker: "PROCESSO", text: "50 vezes" },
+    { fromSrc: 131.0, toSrc: 136.8, file: 2, kicker: "LED VERMELHO", text: "8 minutos" },
+  ],
+};
+export const SERIE3_FRAMES = createTimeline(PART3).totalFrames;
