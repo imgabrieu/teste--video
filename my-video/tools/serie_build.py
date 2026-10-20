@@ -26,7 +26,11 @@ def build(pid, const, files, pieces, note):
     """pieces: list of (edl json, file index, transcript, base key, word ranges, fixes, skips, highlights)"""
     segs = []; words = {}; pages = []
     for edl, f, wl, base, ranges, fix, skip, hl in pieces:
-        for a, b in J(edl):
+        cuts = J(edl)
+        if pid == 'parte4' and edl == 'edl4_f4.json':
+            # from "A gente vai fazer oito minutos com LED vermelho…" to the end of arquivo 04: keep everything, no cuts (b-roll + narration)
+            cuts = [c for c in cuts if c[0] < 125] + [[130.93, 189.2]]
+        for a, b in cuts:
             if f == 1 and pid == 'parte3' and abs(a - 0.15) < 0.01: a = 0.0      # arquivo 03 starts with speech
             segs.append([a, b, f])
         for a, b in ranges:
@@ -51,5 +55,5 @@ build('parte3', 'PART3', ['video/serie_v2.mp4', 'video/serie_v3.mp4'], [
 build('parte4', 'PART4', ['video/serie_v3.mp4', 'video/serie_v4.mp4'], [
     ('edl4_hook.json', 0, w3, 30000, [(331, 341)], {}, set(), {338, 339}),
     ('edl4_indiv.json', 0, w3, 30000, [(388, 420)], F3FIX, set(), {398}),
-    ('edl4_f4.json', 1, w4, 40000, [(0, 24), (53, 88), (108, 188), (250, 278), (300, 337)], {61: "drug", 70: "couro", 125: "vasodilatação.", 179: "melhorar", 180: "a", 271: "vasodilatador,", 300: "Onde"}, {126, 272}, {11, 83, 84, 167, 254, 255, 333, 334}),
+    ('edl4_f4.json', 1, w4, 40000, [(0, 24), (53, 88), (108, 188), (250, 337)], {61: "drug", 70: "couro", 125: "vasodilatação.", 179: "melhorar", 180: "a", 271: "vasodilatador,", 278: "receptores", 279: "ali", 281: "dor", 282: "do", 286: "Esse", 290: "Refólico,", 296: "tecnológico", 297: "que"}, {126, 272}, {11, 83, 84, 167, 254, 255, 290, 333, 334}),
 ], 'Part 4 = medicações, estimulação manual, LED e resultado (arquivo 04) + individualização (arquivo 03). Removed: garbled protocol name, LED-vs-laser repetition.')
