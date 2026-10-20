@@ -14,7 +14,7 @@ export const LAYOUT = {
   captionFont: 54,
   tagTop: 232,
   tagLeft: 84,
-  split: { panelTop: 900, shift: 520, radius: 44, pairTop: 252, pairWidth: 960, kickerTop: 206 },
+  split: { panelTop: 860, shift: 480, radius: 44, pairTop: 238, pairWidth: 900, kickerTop: 204, captionDrop: 78 },
 } as const;
 
 export const TIMING = {

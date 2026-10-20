@@ -26,10 +26,10 @@ export type SerieProps = {
   cta: { line1: string; chip: string } | null;
   /** photo+footage opening (source seconds): the photo pair is on screen while the speaker talks */
   hook: { endSrc: number; stats: { fromSrc: number; toSrc: number; side: "left" | "right"; value: string; label: string }[] } | null;
-  tags: { fromSrc: number; toSrc: number; kicker: string; text: string }[];
+  tags: { fromSrc: number; toSrc: number; file?: number; kicker: string; text: string }[];
 };
 
-const Clip: React.FC<{ file: string; index: number; trimBefore: number; trimAfter: number; length: number }> = ({ file, index, trimBefore, trimAfter, length }) => {
+const Clip: React.FC<{ file: string; first: boolean; index: number; trimBefore: number; trimAfter: number; length: number }> = ({ file, first, index, trimBefore, trimAfter, length }) => {
   const frame = useCurrentFrame();
   const [a, b] = ZOOM[index % ZOOM.length];
   const scale = interpolate(frame, [0, Math.max(1, length - 1)], [a, b], clampX);
@@ -40,7 +40,7 @@ const Clip: React.FC<{ file: string; index: number; trimBefore: number; trimAfte
         trimBefore={trimBefore}
         trimAfter={trimAfter}
         style={fill}
-        volume={(f) => (index === 0 ? Math.min(1, (length - 1 - f) / FADE) : Math.max(0, Math.min(1, f / FADE, (length - 1 - f) / FADE)))}
+        volume={(f) => (first ? Math.min(1, (length - 1 - f) / FADE) : Math.max(0, Math.min(1, f / FADE, (length - 1 - f) / FADE)))}
       />
     </AbsoluteFill>
   );
@@ -89,13 +89,13 @@ const Inner: React.FC<SerieProps> = ({ part, words, label, cta, hook, tags }) =>
         <AbsoluteFill style={{ transform: `translateY(${shift * s}px)`, backgroundColor: "#000" }}>
           {tl.segments.map((seg) => (
             <Sequence key={seg.index} from={seg.outStart} durationInFrames={seg.length} premountFor={30}>
-              <Clip file={part.videoFile} index={seg.index} trimBefore={seg.srcStart} trimAfter={seg.srcEnd} length={seg.length} />
+              <Clip file={part.videoFiles[seg.file]} first={seg.index === 0} index={seg.index} trimBefore={seg.srcStart} trimAfter={seg.srcEnd} length={seg.length} />
             </Sequence>
           ))}
           <Sequence from={tl.speechFrames} durationInFrames={TIMING.outroFrames}>
             <AbsoluteFill style={{ transform: `scale(${ZOOM[last.index % ZOOM.length][1]})`, transformOrigin: "50% 40%" }}>
               <Freeze frame={0}>
-                <OffthreadVideo src={staticFile(part.videoFile)} trimBefore={tl.lastSourceFrame} muted style={fill} />
+                <OffthreadVideo src={staticFile(part.videoFiles[tl.lastFile])} trimBefore={tl.lastSourceFrame} muted style={fill} />
               </Freeze>
             </AbsoluteFill>
           </Sequence>
@@ -130,8 +130,8 @@ const Inner: React.FC<SerieProps> = ({ part, words, label, cta, hook, tags }) =>
 
       {/* step tags */}
       {tags.map((t, i) => {
-        const a = tl.srcToOut(t.fromSrc);
-        const b = tl.srcToOut(t.toSrc);
+        const a = tl.srcToOut(t.fromSrc, t.file ?? 0);
+        const b = tl.srcToOut(t.toSrc, t.file ?? 0);
         if (frame < a || frame > b) return null;
         const l = frame - a;
         const o = interpolate(l, [0, 10], [0, 1], clampX) * interpolate(frame, [b - 8, b], [1, 0], clampX);
@@ -147,7 +147,7 @@ const Inner: React.FC<SerieProps> = ({ part, words, label, cta, hook, tags }) =>
 
       {/* captions are hidden while the CTA card is up */}
       <Sequence from={0} durationInFrames={tl.speechFrames}>
-        <Captions pages={pages} />
+        <Captions pages={pages} dropFor={() => s * LAYOUT.split.captionDrop} />
       </Sequence>
 
       {cta && (

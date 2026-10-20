@@ -11,7 +11,7 @@ export const buildPages = (part: SeriePart, words: Record<number, SerieWord>, tl
     for (let i = a; i <= b; i++) {
       const w = words[i];
       if (!w || w.skip) continue;
-      out.push({ text: w.t, frame: tl.srcToOut(w.s), hl: !!w.hl });
+      out.push({ text: w.t, frame: tl.srcToOut(w.s, w.f ?? 0), hl: !!w.hl });
     }
     return out;
   });

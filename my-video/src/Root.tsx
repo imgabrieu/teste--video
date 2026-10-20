@@ -13,7 +13,7 @@ import { TL as PASSONI_TL } from "./passoni/timeline";
 import { Passoni2 } from "./passoni2/Passoni";
 import { TL as PASSONI2_TL } from "./passoni2/timeline";
 import { Serie } from "./serie/Serie";
-import { SERIE1, SERIE1_FRAMES } from "./serie/parts";
+import { SERIE1, SERIE1_FRAMES, SERIE2, SERIE2_FRAMES } from "./serie/parts";
 
 const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4];
 
@@ -34,5 +34,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Passoni" component={Passoni} durationInFrames={PASSONI_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="Passoni2" component={Passoni2} durationInFrames={PASSONI2_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="Serie1" component={Serie} defaultProps={SERIE1} durationInFrames={SERIE1_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+    <Composition id="Serie2" component={Serie} defaultProps={SERIE2} durationInFrames={SERIE2_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );
