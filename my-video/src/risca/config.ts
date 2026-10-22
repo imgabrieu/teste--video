@@ -10,23 +10,13 @@ export const RC = {
 export const LAYOUT = { minY: 1235, maxY: 1385, below: 195, maxWidth: 940 } as const;
 
 export const SRC = {
-  videoFile: "video/tv.mp4",
+  videoFile: "video/tv2.mp4",
   sourceIn: 0,
-  sourceOut: 55.4,
-  trims: [
-    { from: 2.89, to: 3.37, keep: 0.24 },
-    { from: 12.16, to: 12.81, keep: 0.24 },
-    { from: 17.59, to: 18.18, keep: 0.24 },
-    { from: 22.73, to: 23.29, keep: 0.24 },
-    { from: 37.8, to: 38.35, keep: 0.24 },
-    { from: 38.87, to: 39.37, keep: 0.24 },
-    { from: 41.79, to: 42.32, keep: 0.24 },
-    { from: 49.31, to: 49.92, keep: 0.24 },
-  ],
-  zoom: [
-    [1.0, 1.035],
-    [1.035, 1.0],
-  ] as [number, number][],
+  sourceOut: 55.5, // last sound at 54.87 s; nothing in the speech is cut
+  /** NO cuts inside her speech (client request): the take plays uninterrupted. */
+  trims: [] as { from: number; to: number; keep: number }[],
+  /** one continuous, very slow push-in across the whole take (no jump cuts to hide) */
+  zoom: [[1.0, 1.04]] as [number, number][],
   zoomOrigin: "70% 42%",
 };
 export const END = { hold: 6, veil: 12, frames: 84 };
