@@ -53,8 +53,11 @@ const Captions: React.FC = () => {
         const local = frame - p.from;
         const len = p.to - p.from;
         const exit = interpolate(local, [len - 3, len], [1, 0], clampX);
+        // short pages are set bigger, long ones smaller: always inside the safe width
+        const chars = p.words.map((w) => w.t).join(" ").length;
+        const size = Math.max(54, Math.min(76, Math.round(880 / (chars * 0.585))));
         return (
-          <div key={i} style={{ position: "absolute", left: (1080 - LAYOUT.maxWidth) / 2, width: LAYOUT.maxWidth, top: LAYOUT.captionY - 60, height: 120, display: "flex", justifyContent: "center", alignItems: "center", gap: "0.27em", whiteSpace: "nowrap", fontFamily: FONTS.family, fontSize: LAYOUT.captionFont, lineHeight: 1.1, letterSpacing: "0.003em", opacity: exit }}>
+          <div key={i} style={{ position: "absolute", left: (1080 - LAYOUT.maxWidth) / 2, width: LAYOUT.maxWidth, top: LAYOUT.captionY - 60, height: 120, display: "flex", justifyContent: "center", alignItems: "center", gap: "0.27em", whiteSpace: "nowrap", fontFamily: FONTS.family, fontSize: size, lineHeight: 1.1, letterSpacing: "0.003em", opacity: exit }}>
             {p.words.map((w, k) => {
               const t = frame - w.frame;
               const o = interpolate(t, [-1, 4], [0, 1], { ...clampX, easing: ease });
