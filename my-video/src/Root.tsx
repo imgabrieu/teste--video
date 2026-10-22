@@ -13,6 +13,8 @@ import { TL as PASSONI_TL } from "./passoni/timeline";
 import { Passoni2 } from "./passoni2/Passoni";
 import { TL as PASSONI2_TL } from "./passoni2/timeline";
 import { Dinho } from "./dinho/Dinho";
+import { Risca } from "./risca/Risca";
+import { TL as RISCA_TL } from "./risca/timeline";
 import { TL as DINHO_TL } from "./dinho/timeline";
 import { Serie } from "./serie/Serie";
 import { SERIE1, SERIE1_FRAMES, SERIE2, SERIE2_FRAMES, SERIE3, SERIE3_FRAMES, SERIE4, SERIE4_FRAMES } from "./serie/parts";
@@ -40,5 +42,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Serie3" component={Serie} defaultProps={SERIE3} durationInFrames={SERIE3_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="Serie4" component={Serie} defaultProps={SERIE4} durationInFrames={SERIE4_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="Dinho" component={Dinho} durationInFrames={DINHO_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+    <Composition id="Risca" component={Risca} durationInFrames={RISCA_TL.totalFrames} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );
