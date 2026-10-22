@@ -13,17 +13,12 @@ export const LAYOUT = { captionY: 1208, captionFont: 66, maxWidth: 940 } as cons
 
 export const SRC = {
   videoFile: "video/dinho.mp4",
-  sourceOut: 59.7,
+  sourceOut: 59.92,
   /** pauses tightened (source seconds): the removed middle part is [from + keep/2, to - keep/2]; every cut sits in a quiet moment */
   trims: [
-    { from: 18.21, to: 18.86, keep: 0.16 },
-    { from: 22.71, to: 23.18, keep: 0.16 },
-    { from: 25.85, to: 26.25, keep: 0.14 },
-    { from: 31.66, to: 32.8, keep: 0.18 }, // breath before "Esse tratamento"
-    { from: 37.57, to: 38.04, keep: 0.14 },
-    { from: 42.44, to: 42.9, keep: 0.16 },
-    { from: 53.63, to: 54.03, keep: 0.15 },
-    { from: 57.87, to: 58.31, keep: 0.16 },
+    { from: 22.71, to: 23.17, keep: 0.24 },
+    { from: 31.72, to: 32.22, keep: 0.24 },
+    { from: 57.87, to: 58.32, keep: 0.24 },
   ],
   zoom: [
     [1.0, 1.03],

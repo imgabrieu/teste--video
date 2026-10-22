@@ -24,15 +24,15 @@ export const LAYOUT = {
 export const SRC = {
   videoFile: "video/passoni_stab.mp4",
   sourceIn: 1.06, // first word starts at 1.38 s: 0.3 s of lead-in
-  sourceOut: 45.05,
+  sourceOut: 45.38,
   /** Pauses tightened (source seconds). Cuts always land inside silence; breaths stay. */
   trims: [
-    { from: 8.06, to: 8.47, keep: 0.2 }, // after "trás."
-    { from: 11.32, to: 11.72, keep: 0.16 }, // hesitation before "30"
-    { from: 15.26, to: 15.84, keep: 0.2 }, // after "exposta."
-    { from: 16.12, to: 16.5, keep: 0.14 }, // between "E" and "quando"
-    { from: 21.01, to: 21.36, keep: 0.14 }, // before "alopecia"
-    { from: 35.48, to: 35.77, keep: 0.16 }, // after "saudáveis"
+    { from: 8.14, to: 8.34, keep: 0 },
+    { from: 11.41, to: 11.59, keep: 0 },
+    { from: 15.35, to: 15.74, keep: 0 },
+    { from: 16.22, to: 16.37, keep: 0 },
+    { from: 21.1, to: 21.23, keep: 0 },
+    { from: 35.57, to: 35.64, keep: 0 },
   ],
   /** Subtle punch-ins that alternate per cut (also hides the jump cuts). */
   zoom: [

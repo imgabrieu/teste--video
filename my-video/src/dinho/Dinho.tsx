@@ -6,7 +6,7 @@ import { DC, END, LAYOUT, SRC } from "./config";
 import { TL } from "./timeline";
 import { DPAGES, DWORDS } from "./words";
 
-const FADE = 2;
+const FADE = 1;
 const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
 const clampX = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 const ease = Easing.out(Easing.cubic);
