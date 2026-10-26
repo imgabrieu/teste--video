@@ -41,7 +41,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         const p = spring({ frame: local, fps, config: { damping: 200, stiffness: 120, mass: 0.8 }, durationInFrames: ANIM.wordInFrames + 6 });
         const fade = interpolate(local, [0, ANIM.wordInFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
         const rise = (1 - p) * ANIM.wordRisePx * ANIM.intensity;
-        const scale = (ANIM.wordStartScale + (1 - ANIM.wordStartScale) * p) * (w.hl ? hlScale : 1);
+        const scale = ANIM.wordStartScale + (1 - ANIM.wordStartScale) * p;
         return (
           <span
             key={i}
@@ -56,6 +56,8 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
                     background: pal.highlightBg,
                     color: pal.highlightFg,
                     fontWeight: hlWeight,
+                    fontSize: `${hlScale}em`,
+                    lineHeight: 1.1,
                     textShadow: "none",
                     padding: "0 0.28em",
                     borderRadius: 18,
