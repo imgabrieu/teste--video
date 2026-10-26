@@ -14,6 +14,7 @@ import { KeywordGraphic } from "./graphics/KeywordGraphic";
 import { SpreadGraphic } from "./graphics/SpreadGraphic";
 import { TangleGraphic } from "./graphics/TangleGraphic";
 import { VerdictGraphic } from "./graphics/VerdictGraphic";
+import { LogoPlate } from "./graphics/LogoPlate";
 import { StatGraphic } from "./graphics/StatGraphic";
 import { StepperGraphic } from "./graphics/StepperGraphic";
 import { ThinningGraphic } from "./graphics/ThinningGraphic";
@@ -29,6 +30,7 @@ export const MotionGraphic: React.FC<{ spec: MotionSpec }> = ({ spec }) => {
       {spec.kind === "title" && <TitleGraphic text={spec.text} logo={spec.logo} durationInFrames={duration} />}
       {spec.kind === "stat" && <StatGraphic a={spec.a} b={spec.b} suffix={spec.suffix} label={spec.label} durationInFrames={duration} />}
       {spec.kind === "thinning" && <ThinningGraphic label={spec.label} durationInFrames={duration} />}
+      {spec.kind === "plate" && <LogoPlate bg={spec.bg} durationInFrames={duration} />}
       {spec.kind === "growth" && <GrowthGraphic label={spec.label} durationInFrames={duration} />}
       {spec.kind === "spread" && <SpreadGraphic label={spec.label} durationInFrames={duration} />}
       {spec.kind === "keyword" && <KeywordGraphic kicker={spec.kicker} text={spec.text} durationInFrames={duration} />}

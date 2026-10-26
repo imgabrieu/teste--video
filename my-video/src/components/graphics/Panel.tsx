@@ -14,7 +14,9 @@ export const Panel: React.FC<{
   padding?: string;
 }> = ({ durationInFrames, children, top: topProp, left, width = CANVAS.width - SAFE.left * 2, height = MOTION_ZONE.height, padding = "0 48px" }) => {
   const pal = usePalette();
-  const top = topProp ?? useLayout().motionTop ?? MOTION_ZONE.top;
+  const layout = useLayout();
+  const top = topProp ?? layout.motionTop ?? MOTION_ZONE.top;
+  const panelHeight = layout.motionHeight ?? height;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 200, stiffness: 120 }, durationInFrames: 18 });
@@ -27,7 +29,7 @@ export const Panel: React.FC<{
         left: left ?? (CANVAS.width - width) / 2,
         top,
         width,
-        height,
+        height: panelHeight,
         boxSizing: "border-box",
         padding,
         display: "flex",
@@ -35,10 +37,14 @@ export const Panel: React.FC<{
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 32,
-        background: hexToRgba(pal.ink, 0.86),
-        border: `1.5px solid ${hexToRgba(pal.accent, 0.28)}`,
-        boxShadow: "0 18px 50px rgba(6,20,34,0.32)",
-        backdropFilter: "blur(14px)",
+        ...(pal.light
+          ? {}
+          : {
+              background: hexToRgba(pal.ink, 0.86),
+              border: `1.5px solid ${hexToRgba(pal.accent, 0.28)}`,
+              boxShadow: "0 18px 50px rgba(6,20,34,0.32)",
+              backdropFilter: "blur(14px)",
+            }),
         color: pal.accent,
         fontFamily: FONTS.family,
         opacity,

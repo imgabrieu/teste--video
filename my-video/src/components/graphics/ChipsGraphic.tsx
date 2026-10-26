@@ -19,9 +19,9 @@ export const ChipsGraphic: React.FC<{ label: string; items: { frameAt: number; t
           return (
             <div
               key={i}
-              style={{ display: "flex", alignItems: "center", gap: 12, padding: compact ? "8px 20px" : "16px 30px", borderRadius: 999, background: pal.highlightBg, color: pal.highlightFg, fontWeight: FONTS.bold, fontSize: font, opacity: Math.min(1, p * 1.5), transform: `scale(${0.7 + 0.3 * p})` }}
+              style={{ display: "flex", alignItems: "center", gap: 12, padding: compact ? "8px 20px" : "16px 30px", borderRadius: 999, background: pal.chipBg ?? pal.highlightBg, color: pal.chipFg ?? pal.highlightFg, border: pal.light ? `2px solid ${pal.accent}` : undefined, fontWeight: FONTS.bold, fontSize: font, opacity: Math.min(1, p * 1.5), transform: `scale(${0.7 + 0.3 * p})` }}
             >
-              <svg width={font * 0.78} height={font * 0.78} viewBox="0 0 34 34"><path d="M7 18 L14 25 L27 10" stroke={pal.highlightFg} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" fill="none" /></svg>
+              <svg width={font * 0.78} height={font * 0.78} viewBox="0 0 34 34"><path d="M7 18 L14 25 L27 10" stroke={pal.chipFg ?? pal.highlightFg} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" fill="none" /></svg>
               {it.text}
             </div>
           );

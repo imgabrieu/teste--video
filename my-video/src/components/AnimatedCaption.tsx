@@ -7,7 +7,11 @@ import { useEdit, usePalette } from "../lib/EditContext";
 /** One caption page: words enter one by one (fade + tiny rise + soft spring scale). Highlighted words sit on a white chip with navy text. */
 export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
   const pal = usePalette();
-  const fontSize = useEdit().cfg.caption?.fontSize ?? CAPTION.fontSize;
+  const capCfg = useEdit().cfg.caption;
+  const fontSize = capCfg?.fontSize ?? CAPTION.fontSize;
+  const baseWeight = capCfg?.baseWeight ?? FONTS.bold;
+  const hlWeight = capCfg?.hlWeight ?? FONTS.bold;
+  const hlScale = capCfg?.hlScale ?? 1;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const life = page.to - page.from;
@@ -22,12 +26,12 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         bottom: 0,
         textAlign: "center",
         fontFamily: FONTS.family,
-        fontWeight: FONTS.bold,
+        fontWeight: baseWeight,
         fontSize,
         lineHeight: CAPTION.lineHeight,
         letterSpacing: "-0.01em",
         color: COLORS.white,
-        textShadow: `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
+        textShadow: capCfg?.strongShadow ? `0 1px 3px rgba(6,20,34,0.75), 0 2px 10px rgba(6,20,34,0.6), 0 4px 28px rgba(6,20,34,0.45)` : `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
         opacity: exit,
         transform: `translateY(${(1 - exit) * -4}px)`,
       }}
@@ -37,7 +41,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         const p = spring({ frame: local, fps, config: { damping: 200, stiffness: 120, mass: 0.8 }, durationInFrames: ANIM.wordInFrames + 6 });
         const fade = interpolate(local, [0, ANIM.wordInFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
         const rise = (1 - p) * ANIM.wordRisePx * ANIM.intensity;
-        const scale = ANIM.wordStartScale + (1 - ANIM.wordStartScale) * p;
+        const scale = (ANIM.wordStartScale + (1 - ANIM.wordStartScale) * p) * (w.hl ? hlScale : 1);
         return (
           <span
             key={i}
@@ -51,6 +55,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
                 ? {
                     background: pal.highlightBg,
                     color: pal.highlightFg,
+                    fontWeight: hlWeight,
                     textShadow: "none",
                     padding: "0 0.28em",
                     borderRadius: 18,

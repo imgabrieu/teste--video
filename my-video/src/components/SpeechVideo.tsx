@@ -7,13 +7,14 @@ import { segmentScale } from "../lib/zoom";
 const FADE = 2; // frames of audio micro-fade at every cut (cuts sit in silences) to avoid clicks
 const fill: React.CSSProperties = { width: "100%", height: "100%", objectFit: "cover" };
 
-const patternFor = (index: number) => ZOOM.patterns[index % ZOOM.patterns.length];
+const patternFor = (index: number, patterns: [number, number][] = ZOOM.patterns) => patterns[index % patterns.length];
 
 const SegmentClip: React.FC<{ src: string; index: number; trimBefore: number; trimAfter: number; length: number }> = ({ src, index, trimBefore, trimAfter, length }) => {
+  const { cfg } = useEdit();
   const frame = useCurrentFrame();
-  const scale = segmentScale(index, frame, length);
+  const scale = segmentScale(index, frame, length, cfg.zoom?.patterns);
   return (
-    <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: ZOOM.origin }}>
+    <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: cfg.zoom?.origin ?? ZOOM.origin }}>
       <OffthreadVideo
         src={src}
         trimBefore={trimBefore}
@@ -40,7 +41,7 @@ export const SpeechVideo: React.FC = () => {
       ))}
       {/* final frame held under the logo outro */}
       <Sequence from={SPEECH_FRAMES} durationInFrames={OUTRO_FRAMES}>
-        <AbsoluteFill style={{ transform: `scale(${patternFor(last.index)[1]})`, transformOrigin: ZOOM.origin }}>
+        <AbsoluteFill style={{ transform: `scale(${patternFor(last.index, cfg.zoom?.patterns)[1]})`, transformOrigin: cfg.zoom?.origin ?? ZOOM.origin }}>
           <Freeze frame={0}>
             <OffthreadVideo src={src} trimBefore={LAST_SOURCE_FRAME} muted style={fill} />
           </Freeze>
