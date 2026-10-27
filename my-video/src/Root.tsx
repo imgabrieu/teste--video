@@ -8,6 +8,7 @@ import { EDIT3 } from "./edits/edit3";
 import { EDIT4 } from "./edits/edit4";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
+import { Zana01, Z01 } from "./zana/Zana01";
 import { ZanaVideo } from "./zana/ZanaVideo";
 import { TOTAL_FRAMES } from "./zana/tokens";
 
@@ -28,5 +29,6 @@ export const RemotionRoot: React.FC = () => (
       />
     ))}
     <Composition id="Zana" component={ZanaVideo} durationInFrames={TOTAL_FRAMES} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+    <Composition id="Zana01" component={Zana01} durationInFrames={Math.round(Z01.totalSec * FPS)} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );

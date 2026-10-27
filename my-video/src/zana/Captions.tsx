@@ -12,9 +12,11 @@ const STYLE: Record<Size, React.CSSProperties> = {
   small: { fontWeight: 500, fontSize: 46, letterSpacing: "0", color: C.greyLight },
 };
 
+const PLAIN: React.CSSProperties = { fontWeight: 700, fontSize: 76, letterSpacing: "-0.015em" };
+
 type Timed = { page: Page; from: number; to: number };
 
-const buildTimed = (): Timed[] =>
+const buildTimed = (PAGES: Page[]): Timed[] =>
   PAGES.map((page, i) => {
     const starts = page.lines.flatMap((l) => l.words.map((x) => x.s));
     const first = Math.min(...starts);
@@ -25,7 +27,7 @@ const buildTimed = (): Timed[] =>
     return { page, from: f(first), to: Math.max(f(Math.min(end, nextFirst)), f(first) + 10) };
   });
 
-const Word: React.FC<{ t: string; z: Size; delay: number; dark?: boolean }> = ({ t, z, delay, dark }) => {
+const Word: React.FC<{ t: string; z: Size; delay: number; dark?: boolean; plain?: boolean }> = ({ t, z, delay, dark, plain }) => {
   const frame = useCurrentFrame();
   const local = frame - delay;
   const p = interpolate(local, [0, z === "key" ? 11 : 8], [0, 1], { easing: OUT_E, ...clamp });
@@ -35,8 +37,8 @@ const Word: React.FC<{ t: string; z: Size; delay: number; dark?: boolean }> = ({
       <span
         style={{
           display: "inline-block",
-          ...STYLE[z],
-          color: dark ? C.black : STYLE[z].color,
+          ...(plain ? PLAIN : STYLE[z]),
+          color: dark ? C.black : C.white,
           transform: `translateY(${(1 - p) * 105}%) scale(${scale})`,
           transformOrigin: "50% 100%",
           opacity: interpolate(local, [0, 4], [0, 1], clamp),
@@ -49,7 +51,7 @@ const Word: React.FC<{ t: string; z: Size; delay: number; dark?: boolean }> = ({
   );
 };
 
-const PageView: React.FC<{ item: Timed }> = ({ item }) => {
+const PageView: React.FC<{ item: Timed; plain?: boolean }> = ({ item, plain }) => {
   const frame = useCurrentFrame();
   const life = item.to - item.from;
   const exit = interpolate(frame, [life - 4, life], [1, 0], clamp);
@@ -76,13 +78,13 @@ const PageView: React.FC<{ item: Timed }> = ({ item }) => {
           style={{
             display: "flex",
             alignItems: "baseline",
-            fontSize: 62,
+            fontSize: plain ? 76 : 62,
             gap: "0.3em",
             ...(line.chip ? { background: C.white, borderRadius: 18, padding: "0.02em 0.34em 0.1em", marginTop: 8 } : {}),
           }}
         >
           {line.words.map((wd, wi) => (
-            <Word key={wi} t={wd.t} z={wd.z ?? "base"} delay={f(wd.s) - item.from} dark={line.chip} />
+            <Word key={wi} t={wd.t} z={wd.z ?? "base"} delay={f(wd.s) - item.from} dark={line.chip} plain={plain} />
           ))}
         </div>
       ))}
@@ -91,8 +93,8 @@ const PageView: React.FC<{ item: Timed }> = ({ item }) => {
 };
 
 /** Soft black foot-scrim for legibility; captions are stacked, centred, short blocks. */
-export const Captions: React.FC = () => {
-  const timed = useMemo(buildTimed, []);
+export const Captions: React.FC<{ pages?: Page[]; plain?: boolean }> = ({ pages = PAGES, plain }) => {
+  const timed = useMemo(() => buildTimed(pages), [pages]);
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       <div
@@ -108,7 +110,7 @@ export const Captions: React.FC = () => {
       <div style={{ position: "absolute", inset: 0 }}>
         {timed.map((t, i) => (
           <Sequence key={i} from={t.from} durationInFrames={t.to - t.from} layout="none">
-            <PageView item={t} />
+            <PageView item={t} plain={plain} />
           </Sequence>
         ))}
       </div>
