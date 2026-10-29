@@ -54,7 +54,7 @@ export type EditConfig = {
   palette?: Palette;
   personClips?: PersonClip[];
   /** Vertical placement (px on the 1080x1920 canvas) when the framing differs from the default (face high, panels low). */
-  layout?: { motionTop?: number; behindTop?: number; motionHeight?: number };
+  layout?: { motionTop?: number; behindTop?: number; motionHeight?: number; captionBottom?: number };
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number; scrim?: boolean;
     /** Stronger text shadow for footage without a scrim (no gradient, no box). */
     strongShadow?: boolean;

@@ -29,7 +29,7 @@ export const Captions: React.FC = () => {
           position: "absolute",
           left: SAFE.left,
           right: SAFE.right,
-          bottom: SAFE.bottom,
+          bottom: cfg.layout?.captionBottom ?? SAFE.bottom,
           width: CANVAS.width - SAFE.left - SAFE.right,
           height: 0,
           color: COLORS.white,
