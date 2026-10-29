@@ -11,6 +11,8 @@ export type Palette = {
   chipFg?: string;
   /** Light mode: graphics sit directly on the footage (no glass panel); `accent` is the text colour, `ink` the contrast colour. */
   light?: boolean;
+  /** CSS text-shadow applied to light-mode graphics (for white type on mid-tone footage). */
+  textShadow?: string;
 };
 
 export type CaptionWord = { t: string; s: number; hl?: boolean };
@@ -55,7 +57,9 @@ export type EditConfig = {
   layout?: { motionTop?: number; behindTop?: number; motionHeight?: number };
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number; scrim?: boolean;
     /** Stronger text shadow for footage without a scrim (no gradient, no box). */
-    strongShadow?: boolean; baseWeight?: number; hlWeight?: number; hlScale?: number };
+    strongShadow?: boolean;
+    /** Thin light outline on highlight chips (so a navy chip still reads on dark clothing). */
+    chipBorder?: boolean; baseWeight?: number; hlWeight?: number; hlScale?: number };
   zoom?: { origin?: string; patterns?: [number, number][] };
   /** Sound effects on/off for this edit (default off). */
   sfxEnabled?: boolean;

@@ -38,7 +38,7 @@ export const Panel: React.FC<{
         alignItems: "center",
         borderRadius: 32,
         ...(pal.light
-          ? {}
+          ? { textShadow: pal.textShadow }
           : {
               background: hexToRgba(pal.ink, 0.86),
               border: `1.5px solid ${hexToRgba(pal.accent, 0.28)}`,
