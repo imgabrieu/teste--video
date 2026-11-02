@@ -160,7 +160,7 @@ Ver checklist completa de QC no arquivo 02, seção 14. **Resumo:** zoom 200% em
 │   ·          │   │  ○     ·   ○ │      │              │    │  [OBPC LIM]  │
 │   ║ ║ ║      │   │ ·    ○  ·    │      │    רוּחַ     │    │  CONFERENCE  │
 │  (quase nada)│   │   ·  ○    ·  │      │  (em ouro)   │    │ ██ RUACH ██  │
-└──────────────┘   └──────────────┘      └──────────────┘    │14 & 15 NOV.  │
+└──────────────┘   └──────────────┘      └──────────────┘    │19 ANOS OBPC │
                                                               └──────────────┘
 ```
 | Take | Quadro inicial → final | Composição |
@@ -169,7 +169,7 @@ Ver checklist completa de QC no arquivo 02, seção 14. **Resumo:** zoom 200% em
 | T10.2 | Preto com poeira dourada flutuando devagar num feixe suave | Bokeh grande; espaço negativo |
 | T10.3 | Mesma atmosfera, mais densa → **congela em suspensão** (1:48.8) | Partículas em profundidade; foco raso |
 | T10.4 | Partículas suspensas → **rajada** os varre e agrupa em **רוּחַ** dourado → hold → dissolve em poeira | Glifo centrado, ligeiramente acima do meio |
-| T10.5 | Preto/azul → **RUACH** estoura (impacto) → CONFERENCE, logo, data, 19 anos, Ezequiel | Layout idêntico à arte-chave aprovada |
+| T10.5 | Preto/azul → **RUACH** estoura (impacto) → CONFERENCE, logo, citação, Ezequiel, 19 anos | Layout idêntico à arte-chave aprovada |
 
 ---
 
@@ -706,7 +706,7 @@ Ver checklist completa de QC no arquivo 02, seção 14. **Resumo:** zoom 200% em
 
 #### T10.5 — Tela final: RUACH
 - **TC:** 1:56:00 → 2:00:00 (4 s) · **Motion graphic**
-- **Resumo:** impacto de RUACH em 1:56:00 → CONFERENCE → logo → data → 19 anos → Ezequiel. **Corte seco 2:00:00.**
+- **Resumo:** impacto de RUACH em 1:56:00 → CONFERENCE → logo → citação → Ezequiel → 19 anos. **Corte seco 2:00:00.**
 - **Receita completa e posições:** arquivo 02, seção 13.
 
 **Prompt (plate de fundo do gradiente — opcional)**

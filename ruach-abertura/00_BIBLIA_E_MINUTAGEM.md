@@ -23,8 +23,8 @@ Como você pediu "não ultrapassar 2 minutos", entrego um **Master de 2:00:00** 
 
 **0.2 · A narração é imutável.** Usei o texto **exatamente** como você enviou. Nenhuma palavra foi cortada ou trocada. O que foi ajustado são só as pausas (marcadas ★ = pausa sagrada, que nunca deve ser comprimida).
 
-**0.3 · Duas pequenas divergências texto-do-briefing × arte-chave (moodboard) — decida uma vez:**
-- Data: briefing diz "14 E 15 DE NOVEMBRO"; a arte-chave diz **"14 & 15 NOVEMBRO"**. → Usei a **arte-chave** (é a identidade já aprovada).
+**0.3 · Divergência texto-do-briefing × arte-chave (moodboard) — decida uma vez:**
+- **Data removida da tela final.** O filme roda no próprio dia da conferência, então não aparece "14 & 15 NOVEMBRO" em lugar nenhum. A tela final fica: logo, CONFERENCE, RUACH, citação, EZEQUIEL 37:9 e 19 ANOS OBPC LIMEIRA.
 - Versículo: a narração diz "…e **sopra** sobre estes mortos…" (conforme briefing); a arte-chave escreve "…e **assopra** sobre estes mortos…". → Narração fica como você mandou; o **texto na tela final** segue a arte-chave ("assopra"). São dois registros diferentes (fala × citação escrita). Se preferir uniformizar, avise.
 
 **0.4 · Ossos.** O briefing pede ossos sem nada grotesco. Regra do filme: **nenhum crânio, nenhum esqueleto montado, nenhuma caixa torácica, nenhum dente.** Só ossos longos, fragmentados, branqueados pelo sol, semi-enterrados, de escala ambígua (podem parecer madeira de deriva ou pedra). Isso evita horror, evita "corpo" (que violaria a regra de zero pessoas) e é mais poético: o espectador *entende* sem ver anatomia.
@@ -82,7 +82,7 @@ Como você pediu "não ultrapassar 2 minutos", entrego um **Master de 2:00:00** 
 | Grafite | `#1C2230` | Sombras elevadas, interiores |
 | Brasa | `#6A4020` | Reflexos quentes, horizonte da tela final |
 | Ouro | `#D6AA5A` | Partículas, luz rasante, textos de apoio |
-| Destaque | `#F5C562` | Núcleo de luz, "NOVEMBRO", "EZEQUIEL 37:9" |
+| Destaque | `#F5C562` | Núcleo de luz, "EZEQUIEL 37:9" |
 | Marfim | `#F5EEDF` | Tipografia principal (RUACH, CONFERENCE) |
 
 ### Tipografia (da arte-chave aprovada)
@@ -90,7 +90,7 @@ Como você pediu "não ultrapassar 2 minutos", entrego um **Master de 2:00:00** 
 | Fonte | Uso |
 |---|---|
 | **Anton** | Títulos: RUACH, CONFERENCE, VENTO, SOPRO, ESPÍRITO, VEM DOS QUATRO VENTOS |
-| **Archivo Black** | Datas e destaques: 14 & 15 / NOVEMBRO |
+| **Archivo Black** | Reservada (não usada nesta versão, pois a data foi removida) |
 | **Bebas Neue** | Textos de apoio: ANTES DA FORMA, 19 ANOS OBPC LIMEIRA, EZEQUIEL 37:9, citação |
 | **Hebraico (רוּחַ)** | *Noto Serif Hebrew* Bold (ou *Frank Ruhl Libre* Bold). **Testar a vocalização (niqqud):** ר + וּ (shuruk) + ח + ַ (patach furtivo). Se o motor de texto embaralhar a ordem RTL ou desalinhar os sinais, **vetorizar o glifo no Illustrator** e animar o vetor. |
 
@@ -279,6 +279,6 @@ INTENSIDADE ──────────────────────�
 | 1:55.3 | glifo se desfaz em poeira |
 | **1:56.0** | **IMPACTO · RUACH** |
 | 1:56.3 | "Ruach." |
-| 1:56.5 → 1:57.6 | CONFERENCE → logo → citação + Ezequiel → data → 19 anos (quadro completo em 1:57:14) |
+| 1:56.5 → 1:57.6 | CONFERENCE → logo → citação + Ezequiel → 19 anos (quadro completo em 1:57:14) |
 | 1:58.2 | "Vem dos quatro ventos." |
 | **2:00.0** | **CORTE SECO. FIM.** (som e imagem) |

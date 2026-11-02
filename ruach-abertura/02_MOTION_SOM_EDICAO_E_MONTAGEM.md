@@ -15,7 +15,7 @@
 
 | Item | Valor |
 |---|---|
-| Fontes | Anton (títulos), Archivo Black (datas), Bebas Neue (apoio), Noto Serif Hebrew Bold (רוּחַ) — ver seção 0.A |
+| Fontes | Anton (títulos), Archivo Black (reservada), Bebas Neue (apoio), Noto Serif Hebrew Bold (רוּחַ) — ver seção 0.A |
 | Cor de texto | Marfim `#F5EEDF` (núcleo) com halo Ouro `#D6AA5A`/`#F5C562` (glow 8–14%) |
 | Partículas | 80–200 mil por palavra; tamanho 1–3 px (em 4K); variação de tamanho 1:6; motion blur 180°; DOF ligado |
 | Física | Turbulência com direção dominante → (X+); *wind* constante + *curl noise* para não parecer "efeito" |
@@ -498,7 +498,7 @@ Deliver stems: strings, pad/drone, percussion, sub, risers/FX.
 ## 13. TELA FINAL (item 19)
 
 ### 13.1 · Princípio
-O último quadro é a **arte-chave aprovada, viva.** Cada elemento entra por vento/poeira (nunca fade). Todos os elementos devem estar no lugar **em 1:57:14**, e o quadro **permanece ~2.5 s** antes do corte seco.
+O último quadro é a **arte-chave aprovada, viva.** Cada elemento entra por vento/poeira (nunca fade). Todos os elementos devem estar no lugar **em 1:57:14** (a linha de 19 anos entra em 1:57:06), e o quadro **permanece ~2.5 s** antes do corte seco.
 
 ### 13.2 · Layout (proporções extraídas da arte-chave; calibrar sobre o arquivo original em 3840×2160)
 
@@ -509,9 +509,9 @@ O último quadro é a **arte-chave aprovada, viva.** Cada elemento entra por ven
 | **RUACH** | Anton | Marfim `#F5EEDF` + glow Ouro | x 50%, y ≈ 47% | cap height ≈ 43% da altura; largura ≈ 64% |
 | **Citação** "Vem dos quatro ventos, ó espírito, e assopra sobre estes mortos, para que vivam." | Bebas Neue itálico | Marfim | x 50%, y ≈ 75% | altura ≈ 3% |
 | **EZEQUIEL 37:9** | Bebas Neue, tracking +200 | Destaque `#F5C562` | x 50%, y ≈ 78,5% | altura ≈ 1,6% |
-| **14 & 15** | Archivo Black | Marfim | x 44%, y ≈ 87% | cap height ≈ 4,9% |
-| **NOVEMBRO** | Archivo Black | Destaque `#F5C562` | à direita de "14 & 15" | idem |
-| **19 ANOS OBPC LIMEIRA** | Bebas Neue, tracking +100 | Ouro `#D6AA5A` | x 50%, y ≈ 94% | altura ≈ 1,7% |
+| **19 ANOS OBPC LIMEIRA** | Bebas Neue, tracking +150 | Ouro `#D6AA5A` | x 50%, y ≈ 90% | altura ≈ 2,6% (um pouco maior que na arte-chave, ocupa o lugar da data) |
+
+> **Sem data.** O vídeo é exibido no dia da conferência; a linha "14 & 15 NOVEMBRO" da arte-chave foi retirada.
 
 - **Fundo:** gradiente vertical **Azul Noite `#0A1220` (topo) → Brasa `#6A4020` (base)**, com **linhas de névoa** finas e ondulantes (como na arte-chave) e um **halo quente** subindo do horizonte inferior.
 - **Atmosfera:** poeira dourada residual atravessando (opacidade 15–25%, mesma direção →).
@@ -525,8 +525,7 @@ O último quadro é a **arte-chave aprovada, viva.** Cada elemento entra por ven
 | 1:56:12 | **CONFERENCE** | Revelado por **rajada** → (vento passa pela palavra e "descobre" as letras), 10 frames |
 | 1:56:20 | **Logo OBPC Limeira** | Emerge de névoa (8 frames) |
 | 1:57:00 | **Citação** + **EZEQUIEL 37:9** | A citação surge palavra a palavra por poeira (8 frames); EZEQUIEL em Destaque logo abaixo |
-| 1:57:06 | **14 & 15 → NOVEMBRO** | "14 & 15" em Marfim, depois "NOVEMBRO" em Destaque (stagger de 6 frames), por *reveal de luz* (varredura de feixe de esquerda a direita) |
-| 1:57:14 | **19 ANOS OBPC LIMEIRA** | Surge por poeira (8 frames) |
+| 1:57:06 | **19 ANOS OBPC LIMEIRA** | Revelado por *varredura de luz* da esquerda para a direita (8 frames); completa o quadro |
 | 1:57:14 → 1:58:05 | **Quadro completo** | Glow "respira" ±3%; névoa deriva; ~1 s de contemplação (silêncio com vento fino) |
 | 1:58:05 | "Vem dos quatro ventos." (voz) | Última frase; imagem **estável** |
 | **2:00:00** | **CORTE SECO** | Imagem e áudio terminam no **mesmo frame** (sem fade) |
@@ -577,7 +576,7 @@ O último quadro é a **arte-chave aprovada, viva.** Cada elemento entra por ven
 | 29 | 1:39:00 | T10.2 | Partículas lentas | 1:40.0 "Sopra outra vez." · 1:42.2 "Sopra sobre a tua Igreja." | Vento mínimo |
 | 30 | 1:45:00 | T10.3 | Partículas; **freeze 1:48:19** | 1:44.9 "Sopra sobre esta geração." · 1:47.6 "Sopra sobre nós." | **1:48.8 SILÊNCIO TOTAL** |
 | 31 | 1:50:12 | T10.4 | **Rajada**; glifo רוּחַ (forma, hold, dissolve) | — | **Rajada única (1:50:12)** · sub-pulso 1:53 |
-| 32 | **1:56:00** | T10.5 | **IMPACTO · RUACH** → CONFERENCE → logo → citação → data → 19 anos | 1:56.3 "**Ruach.**" · 1:58.2 "**Vem dos quatro ventos.**" | **Impacto grave** · vento fino |
+| 32 | **1:56:00** | T10.5 | **IMPACTO · RUACH** → CONFERENCE → logo → citação → Ezequiel → 19 anos | 1:56.3 "**Ruach.**" · 1:58.2 "**Vem dos quatro ventos.**" | **Impacto grave** · vento fino |
 | — | **2:00:00** | — | **CORTE SECO** | — | **Tudo para.** |
 
 ### 14.2 · Checklist de QC por take (obrigatória)
