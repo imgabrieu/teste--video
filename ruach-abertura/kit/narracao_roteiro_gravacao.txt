@@ -1,0 +1,85 @@
+RUACH CONFERENCE 2026 · ROTEIRO DE GRAVAÇÃO DA NARRAÇÃO
+==========================================================
+Voz masculina, 35 a 50 anos, português do Brasil, grave, calma, reverente.
+Começa quase sussurrada e cresce até "E encheu toda a casa.", depois volta à intimidade.
+Nunca gritar. O impacto vem das pausas.
+
+PRONÚNCIA DE RUACH: "RÚ-ARR", final levemente gutural (como o "ch" de Bach, suave).
+Evitar: ruáki, ruáche, ruatch, ruaque.
+
+Gravar cada linha separada, 4 a 6 tomadas, 48 kHz / 24-bit, sem efeitos.
+Nomear os arquivos pelo código da linha: VO01_t1.wav, VO01_t2.wav...
+[PAUSA] = pausa longa obrigatória depois da linha. Deixe 2 s de silêncio no fim de cada tomada.
+
+VO01  (0:01.8, intensidade 20%)  "Antes da forma…"
+      Intenção: quase sussurro, íntimo
+VO02  (0:04.2, intensidade 20%)  "antes da vida…"
+      Intenção: mesma intimidade, mais lenta
+VO03  (0:06.6, intensidade 25%)  "Ele já se movia."
+      Intenção: mistério, olhar para dentro
+VO04  (0:08.6, intensidade 30%)  "Ruach." [PAUSA]
+      Intenção: sussurro grave, palavra-semente
+VO05  (0:10.2, intensidade 35%)  "O Espírito de Deus pairava sobre as águas."
+      Intenção: solenidade serena
+VO06  (0:15.0, intensidade 40%)  "Antes que a criação tomasse forma, o Espírito já estava presente."
+      Intenção: amplitude, assombro
+VO07  (0:20.5, intensidade 35%)  "Vento." [PAUSA]
+      Intenção: cada palavra é uma gota
+VO08  (0:22.5, intensidade 35%)  "Sopro." [PAUSA]
+      Intenção: idem
+VO09  (0:24.5, intensidade 40%)  "Espírito." [PAUSA]
+      Intenção: idem, mais cheio
+VO10  (0:26.8, intensidade 45%)  "Ruach."
+      Intenção: agora com corpo
+VO11  (0:28.8, intensidade 30%)  "Então Deus levou o profeta a um vale."
+      Intenção: seco, narrativo, sem ornamento
+VO12  (0:32.2, intensidade 30%)  "E o vale estava cheio de ossos."
+      Intenção: peso, sem dramatizar
+VO13  (0:36.0, intensidade 25%)  "Secos." [PAUSA]
+      Intenção: queda de tom; silêncio de 1.3 s depois
+VO14  (0:38.5, intensidade 30%)  "E Deus perguntou:" [PAUSA]
+      Intenção: cuidado, quase reverente
+VO15  (0:40.4, intensidade 35%)  "'Poderão estes ossos viver?'" [PAUSA]
+      Intenção: a pergunta pairando (leve subida de tom no final)
+VO16  (0:44.6, intensidade 35%)  "Porque onde os nossos olhos enxergam o fim,"
+      Intenção: respiração, começa a esperança
+VO17  (0:48.0, intensidade 45%)  "Deus ainda pode ordenar vida."
+      Intenção: firmeza serena
+VO18  (0:51.5, intensidade 45%)  "Então veio a ordem:"
+      Intenção: autoridade
+VO19  (0:53.6, intensidade 50%)  "'Profetiza ao Espírito.'" [PAUSA]
+      Intenção: firme, direto
+VO20  (0:56.3, intensidade 55%)  "'Vem dos quatro ventos, ó Espírito,"
+      Intenção: cresce
+VO21  (0:59.3, intensidade 60%)  "e sopra sobre estes mortos,"
+      Intenção: poder contido
+VO22  (1:01.3, intensidade 65%)  "para que vivam.'"
+      Intenção: ápice parcial, sem gritar
+VO23  (1:04.6, intensidade 40%)  "E o sopro entrou."
+      Intenção: sussurro, deixa o sub falar
+VO24  (1:07.0, intensidade 35%)  "E aquilo que estava morto…" [PAUSA]
+      Intenção: suspensão (1.5 s)
+VO25  (1:10.5, intensidade 30%)  "viveu." [PAUSA]
+      Intenção: quase um suspiro (silêncio 1.8 s depois)
+VO26  (1:13.6, intensidade 40%)  "O vento sopra onde quer."
+      Intenção: leve, universal
+VO27  (1:16.2, intensidade 40%)  "Você não vê de onde vem,"
+      Intenção: contemplativo
+VO28  (1:18.4, intensidade 50%)  "mas percebe tudo aquilo que ele toca."
+      Intenção: sorriso na voz; sem sorrir
+VO29  (1:23.6, intensidade 55%)  "E, de repente,"
+      Intenção: tensão
+VO30  (1:25.4, intensidade 70%)  "veio do céu um som como de um vento impetuoso."
+      Intenção: plenitude (sem gritar)
+VO31  (1:30.0, intensidade 75%)  "E encheu toda a casa."
+      Intenção: máxima da peça (ainda controlada)
+VO32  (1:36.5, intensidade 30%)  "E a nossa oração continua sendo a mesma:"
+      Intenção: volta à intimidade (queda brusca)
+VO33  (1:40.0, intensidade 30%)  "Sopra outra vez." [PAUSA]
+      Intenção: súplica contida
+VO34  (1:47.6, intensidade 40%)  "Sopra sobre nós." [PAUSA]
+      Intenção: mais íntimo; seguido por 1.7 s de silêncio total
+VO35  (1:56.3, intensidade 60%)  "Ruach."
+      Intenção: ancorado no impacto; grave, cheio, quase seco
+VO36  (1:58.2, intensidade 65%)  "Vem dos quatro ventos."
+      Intenção: ponto final; sem cauda de fala; corte seco

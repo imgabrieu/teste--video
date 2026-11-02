@@ -12,6 +12,10 @@ Este dossiê tem três arquivos:
 | `00_BIBLIA_E_MINUTAGEM.md` (este) | Decisões de direção, bíblia visual, minutagem, divisão por cena | 1, 3 |
 | `01_STORYBOARD_TAKES_E_PROMPTS.md` | Storyboard, 32 takes com câmera, lente, luz, atmosfera, prompts e negativos | 2, 4, 5, 6, 7, 8, 9, 10 |
 | `02_MOTION_SOM_EDICAO_E_MONTAGEM.md` | Motion, som, trilha, transições, edição, cor, mixagem, narração, tela final, montagem | 11–20 |
+| `kit/03_KIT_GERACAO.md` | Os 32 prompts completos, prontos para colar no gerador (com negativo e versão tudo-em-um) | — |
+| `kit/takes_controle.csv` | Planilha de controle dos takes (abre no Excel/Google Sheets) | — |
+| `kit/narracao_roteiro_gravacao.txt` · `kit/narracao_texto_tts.txt` | Falas da narração separadas, para gravar ou gerar voz | — |
+| `kit/04_VERSAO_SEM_NARRACAO.md` | Versão do filme sem voz: textos na tela, som e trilha ajustados | — |
 
 ---
 

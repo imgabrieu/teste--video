@@ -1,0 +1,39 @@
+# Uma linha por arquivo de áudio (VO01, VO02...). Gerar linha a linha para controlar as pausas.
+# Se o serviço pronunciar errado, troque "Ruach" por "Rúarr" só na geração.
+
+VO01: Antes da forma…
+VO02: antes da vida…
+VO03: Ele já se movia.
+VO04: Ruach.
+VO05: O Espírito de Deus pairava sobre as águas.
+VO06: Antes que a criação tomasse forma, o Espírito já estava presente.
+VO07: Vento.
+VO08: Sopro.
+VO09: Espírito.
+VO10: Ruach.
+VO11: Então Deus levou o profeta a um vale.
+VO12: E o vale estava cheio de ossos.
+VO13: Secos.
+VO14: E Deus perguntou:
+VO15: Poderão estes ossos viver?
+VO16: Porque onde os nossos olhos enxergam o fim,
+VO17: Deus ainda pode ordenar vida.
+VO18: Então veio a ordem:
+VO19: Profetiza ao Espírito.
+VO20: Vem dos quatro ventos, ó Espírito,
+VO21: e sopra sobre estes mortos,
+VO22: para que vivam.
+VO23: E o sopro entrou.
+VO24: E aquilo que estava morto…
+VO25: viveu.
+VO26: O vento sopra onde quer.
+VO27: Você não vê de onde vem,
+VO28: mas percebe tudo aquilo que ele toca.
+VO29: E, de repente,
+VO30: veio do céu um som como de um vento impetuoso.
+VO31: E encheu toda a casa.
+VO32: E a nossa oração continua sendo a mesma:
+VO33: Sopra outra vez.
+VO34: Sopra sobre nós.
+VO35: Ruach.
+VO36: Vem dos quatro ventos.
