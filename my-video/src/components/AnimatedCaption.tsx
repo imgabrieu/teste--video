@@ -4,6 +4,13 @@ import { ANIM, CAPTION, COLORS, FONTS } from "../config/theme";
 import type { CaptionPage } from "../lib/captionPages";
 import { useEdit, usePalette } from "../lib/EditContext";
 
+const measure = (text: string, weight: number, px: number) => {
+  const ctx = typeof document !== "undefined" ? document.createElement("canvas").getContext("2d") : null;
+  if (!ctx) return text.length * px * 0.6;
+  ctx.font = `${weight} ${px}px Poppins, sans-serif`;
+  return ctx.measureText(text).width;
+};
+
 /** One caption page: words enter one by one (fade + tiny rise + soft spring scale). Highlighted words sit on a white chip with navy text. */
 export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
   const pal = usePalette();
@@ -15,6 +22,18 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const life = page.to - page.from;
+  const gapPx = CAPTION.wordGapEm * fontSize;
+  const widths = page.words.map((w) => {
+    const px = fontSize * (w.hl ? hlScale : 1);
+    return measure(w.text, w.hl ? hlWeight : baseWeight, px) + (w.hl ? 0.56 * px : 0);
+  });
+  const totalW = widths.reduce((a, b) => a + b, 0) + gapPx * (page.words.length - 1);
+  let visW = 0;
+  page.words.forEach((w, i) => {
+    const prog = interpolate(frame - (w.frame - page.from), [0, ANIM.wordInFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+    visW += (widths[i] + (i > 0 ? gapPx : 0)) * prog;
+  });
+  const shiftX = (totalW - visW) / 2;
   const exit = interpolate(frame, [life - 4, life], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (
@@ -33,7 +52,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         color: COLORS.white,
         textShadow: capCfg?.strongShadow ? `0 1px 3px rgba(6,20,34,0.75), 0 2px 10px rgba(6,20,34,0.6), 0 4px 28px rgba(6,20,34,0.45)` : `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
         opacity: exit,
-        transform: `translateY(${(1 - exit) * -4}px)`,
+        transform: `translate(${shiftX}px, ${(1 - exit) * -4}px)`,
       }}
     >
       {page.words.map((w, i) => {

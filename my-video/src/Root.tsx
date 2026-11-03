@@ -9,10 +9,11 @@ import { EDIT4 } from "./edits/edit4";
 import { EDIT5 } from "./edits/edit5";
 import { EDIT6 } from "./edits/edit6";
 import { EDIT7 } from "./edits/edit7";
+import { EDIT8 } from "./edits/edit8";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
 
-const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4, EDIT5, EDIT6, EDIT7];
+const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4, EDIT5, EDIT6, EDIT7, EDIT8];
 
 export const RemotionRoot: React.FC = () => (
   <>

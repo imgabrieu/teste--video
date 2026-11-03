@@ -54,7 +54,7 @@ export type EditConfig = {
   palette?: Palette;
   personClips?: PersonClip[];
   /** Vertical placement (px on the 1080x1920 canvas) when the framing differs from the default (face high, panels low). */
-  layout?: { motionTop?: number; behindTop?: number; motionHeight?: number; captionBottom?: number };
+  layout?: { motionTop?: number; behindTop?: number; motionHeight?: number; captionBottom?: number; motionLeft?: number; motionWidth?: number; keywordScale?: number };
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number; scrim?: boolean;
     /** Stronger text shadow for footage without a scrim (no gradient, no box). */
     strongShadow?: boolean;
@@ -64,5 +64,5 @@ export type EditConfig = {
   /** Sound effects on/off for this edit (default off). */
   sfxEnabled?: boolean;
   /** Closing card. Default: logo only. `cta`: logo + call-to-action text (one entry per line; joined it reads as the full sentence). */
-  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number; bg?: string; fg?: string };
+  outro?: { type: "cta"; lines: string[]; seconds: number; sfxVolume?: number; bg?: string; fg?: string; paragraphs?: boolean };
 };

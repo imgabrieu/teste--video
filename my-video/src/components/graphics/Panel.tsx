@@ -17,6 +17,8 @@ export const Panel: React.FC<{
   const layout = useLayout();
   const top = topProp ?? layout.motionTop ?? MOTION_ZONE.top;
   const panelHeight = layout.motionHeight ?? height;
+  const panelWidth = layout.motionWidth ?? width;
+  const panelLeft = layout.motionLeft ?? left;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const enter = spring({ frame, fps, config: { damping: 200, stiffness: 120 }, durationInFrames: 18 });
@@ -26,9 +28,9 @@ export const Panel: React.FC<{
     <div
       style={{
         position: "absolute",
-        left: left ?? (CANVAS.width - width) / 2,
+        left: panelLeft ?? (CANVAS.width - panelWidth) / 2,
         top,
-        width,
+        width: panelWidth,
         height: panelHeight,
         boxSizing: "border-box",
         padding,

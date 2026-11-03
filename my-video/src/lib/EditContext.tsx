@@ -29,5 +29,5 @@ export const usePalette = (): Palette => useEdit().cfg.palette ?? DEFAULT_PALETT
 
 export const useLayout = () => {
   const l = useEdit().cfg.layout;
-  return { motionTop: l?.motionTop, behindTop: l?.behindTop ?? 560, motionHeight: l?.motionHeight };
+  return { motionTop: l?.motionTop, behindTop: l?.behindTop ?? 560, motionHeight: l?.motionHeight, motionLeft: l?.motionLeft, motionWidth: l?.motionWidth, keywordScale: l?.keywordScale ?? 1 };
 };
