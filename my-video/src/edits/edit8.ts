@@ -7,7 +7,8 @@ import type { EditConfig, Palette } from "./types";
  * captions = white with a soft shadow at the lower centre (below the speaker's face, over table/laptop); motions = navy type on the
  * bare wall strip under the TV, left of the speaker; highlight chips = navy. No gradient, no scrim, no sound.
  */
-const PALETTE: Palette = { accent: NAVY, ink: "#FFFFFF", highlightBg: NAVY, highlightFg: "#FFFFFF", chipBg: "#FFFFFF", chipFg: NAVY, light: true };
+// Highlight chips are WHITE with navy text (a navy chip disappears against the blue TV / its reflection in the table).
+const PALETTE: Palette = { accent: NAVY, ink: "#FFFFFF", highlightBg: "#FFFFFF", highlightFg: NAVY, chipBg: "#FFFFFF", chipFg: NAVY, light: true };
 
 // Edit 8 — "bolinhas / pápulas / acromias: manejar ou indicar ao dermatologista" (39.1 s, wide shot, slide on TV).
 export const EDIT8: EditConfig = {
@@ -17,7 +18,7 @@ export const EDIT8: EditConfig = {
   sourceOut: 39.0,
   palette: PALETTE,
   layout: { motionTop: 1040, motionHeight: 150, motionLeft: 24, motionWidth: 500, keywordScale: 0.9 },
-  caption: { fontSize: 70, maxChars: 17, maxWords: 3, scrim: false, strongShadow: true, chipBorder: true, baseWeight: 600, hlWeight: 700, hlScale: 1.12 },
+  caption: { fontSize: 66, maxChars: 26, maxWords: 4, minSeconds: 1.3, scrim: false, strongShadow: true, baseWeight: 600, hlWeight: 700, hlScale: 1.1 },
   zoom: { origin: "75% 50%", patterns: [[1.0, 1.02], [1.02, 1.035], [1.0, 1.015], [1.025, 1.035]] },
   sfxEnabled: false,
   outro: { type: "cta", lines: ["Você vai ficar de fora?", "Acesse agora o Capiflix."], seconds: 2.2, bg: NAVY, fg: "#FFFFFF", paragraphs: true },
@@ -42,7 +43,7 @@ export const EDIT8: EditConfig = {
   words: CAPTION_WORDS_8,
   motions: [
     { id: "papulas", kind: "keyword", from: 1.2, to: 5.9, kicker: "Pápulas", text: "Parecem queratose pilar" },
-    { id: "acromia", kind: "keyword", from: 6.7, to: 10.95, kicker: "Acromias", text: "Manchas sem pigmento" },
+    { id: "acromia", kind: "keyword", from: 6.7, to: 10.95, kicker: "Acromias", text: "Sem pigmento" },
     { id: "conduta", kind: "keyword", from: 12.5, to: 20.8, kicker: "Conduta", text: "Manejar ou indicar" },
     { id: "folículo", kind: "keyword", from: 31.4, to: 34.9, kicker: "Quem só trata", text: "Folículo piloso" },
   ],

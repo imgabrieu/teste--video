@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { ANIM, CAPTION, COLORS, FONTS } from "../config/theme";
+import { ANIM, CANVAS, CAPTION, COLORS, FONTS, SAFE } from "../config/theme";
 import type { CaptionPage } from "../lib/captionPages";
 import { useEdit, usePalette } from "../lib/EditContext";
 
@@ -33,7 +33,8 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
     const prog = interpolate(frame - (w.frame - page.from), [0, ANIM.wordInFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
     visW += (widths[i] + (i > 0 ? gapPx : 0)) * prog;
   });
-  const shiftX = (totalW - visW) / 2;
+  const wraps = totalW > CANVAS.width - SAFE.left - SAFE.right;
+  const shiftX = wraps ? 0 : (totalW - visW) / 2;
   const exit = interpolate(frame, [life - 4, life], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
 
   return (

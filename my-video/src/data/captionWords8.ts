@@ -61,7 +61,7 @@ export const CAPTION_WORDS_8: CaptionWord[] = [
   { t: "fazem", s: 22.32 },
   { t: "aqui", s: 22.72 },
   { t: "o", s: 22.96 },
-  { t: "curso.", s: 23.04 },
+  { t: "curso,", s: 23.04 },
   { t: "têm", s: 23.68 },
   { t: "muito", s: 24.37 },
   { t: "tratamento", s: 25.32 },

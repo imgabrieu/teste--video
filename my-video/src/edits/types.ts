@@ -55,7 +55,7 @@ export type EditConfig = {
   personClips?: PersonClip[];
   /** Vertical placement (px on the 1080x1920 canvas) when the framing differs from the default (face high, panels low). */
   layout?: { motionTop?: number; behindTop?: number; motionHeight?: number; captionBottom?: number; motionLeft?: number; motionWidth?: number; keywordScale?: number };
-  caption?: { fontSize?: number; maxChars?: number; maxWords?: number; scrim?: boolean;
+  caption?: { fontSize?: number; maxChars?: number; maxWords?: number; /** Minimum on-screen seconds per page (slower, more readable paging). */ minSeconds?: number; scrim?: boolean;
     /** Stronger text shadow for footage without a scrim (no gradient, no box). */
     strongShadow?: boolean;
     /** Thin light outline on highlight chips (so a navy chip still reads on dark clothing). */

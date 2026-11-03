@@ -14,13 +14,16 @@ export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
   const { srcToOut, speechFrames: SPEECH_FRAMES } = tl;
   const maxWords = cfg.caption?.maxWords ?? CAPTION.maxWordsPerPage;
   const maxChars = cfg.caption?.maxChars ?? CAPTION.maxCharsPerPage;
+  const minSec = cfg.caption?.minSeconds ?? 0; // 0 = classic quick paging
   const groups: { t: string; s: number; hl?: boolean }[][] = [];
   let cur: typeof groups[number] = [];
   for (const w of cfg.words) {
     cur.push(w);
     const chars = cur.map((x) => x.t).join(" ").length;
     const last = w.t;
-    if (endsSentence(last) || (endsClause(last) && cur.length >= 2)) {
+    const span = w.s - cur[0].s + 0.35; // seconds this page has been on screen if it ended here
+    const slowOk = minSec === 0 || span >= minSec;
+    if ((endsSentence(last) && (minSec === 0 || span >= minSec * 0.7)) || (endsClause(last) && cur.length >= 2 && slowOk)) {
       groups.push(cur);
       cur = [];
     } else if (cur.length >= maxWords || chars >= maxChars) {
@@ -38,6 +41,12 @@ export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
     const from = words[0].frame;
     const nextFrom = i + 1 < groups.length ? srcToOut(groups[i + 1][0].s) : SPEECH_FRAMES;
     const lastWord = words[words.length - 1].frame;
+    if (minSec > 0) {
+      // slower reading: a page stays until the next one replaces it (small gaps), else lingers 0.6 s after its last word
+      const linger = lastWord + Math.round(0.6 * FPS);
+      const to = nextFrom - from <= Math.round(0.8 * FPS) ? nextFrom : Math.min(nextFrom, linger);
+      return { from, to: Math.max(to, from + Math.round(minSec * FPS * 0.8)), words };
+    }
     const natural = lastWord + Math.max(hold, 12);
     // stay until the next page begins when the gap is small; otherwise linger `hold` frames then fade
     const to = Math.min(Math.max(natural, from + 10), nextFrom > natural ? natural : nextFrom);
