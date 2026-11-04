@@ -19,8 +19,8 @@ export const EDIT9: EditConfig = {
   layout: { motionTop: 590, motionHeight: 165, captionBottom: 1400 },
   caption: {
     fontSize: 64,
-    maxChars: 22,
-    maxWords: 4,
+    maxChars: 23,
+    maxWords: 5,
     minSeconds: 1.3,
     scrim: false,
     shadowCss: "0 1px 2px rgba(45,28,12,0.9), 0 2px 10px rgba(45,28,12,0.65), 0 0 28px rgba(45,28,12,0.4)",

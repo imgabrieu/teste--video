@@ -50,7 +50,8 @@ export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
       // slower reading: a page stays until the next one replaces it (small gaps), else lingers 0.6 s after its last word
       const linger = lastWord + Math.round(0.6 * FPS);
       const to = nextFrom - from <= Math.round(0.8 * FPS) ? nextFrom : Math.min(nextFrom, linger);
-      return { from, to: Math.max(to, from + Math.round(minSec * FPS * 0.8)), words };
+      // never run past the next page (that would overlap two captions)
+      return { from, to: Math.min(Math.max(to, from + Math.round(minSec * FPS * 0.8)), nextFrom), words };
     }
     const natural = lastWord + Math.max(hold, 12);
     // stay until the next page begins when the gap is small; otherwise linger `hold` frames then fade
