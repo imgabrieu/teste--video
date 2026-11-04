@@ -51,7 +51,7 @@ export const AnimatedCaption: React.FC<{ page: CaptionPage }> = ({ page }) => {
         lineHeight: CAPTION.lineHeight,
         letterSpacing: "-0.01em",
         color: COLORS.white,
-        textShadow: capCfg?.strongShadow ? `0 1px 3px rgba(6,20,34,0.75), 0 2px 10px rgba(6,20,34,0.6), 0 4px 28px rgba(6,20,34,0.45)` : `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
+        textShadow: capCfg?.shadowCss ? capCfg.shadowCss : capCfg?.strongShadow ? `0 1px 3px rgba(6,20,34,0.75), 0 2px 10px rgba(6,20,34,0.6), 0 4px 28px rgba(6,20,34,0.45)` : `0 2px 4px rgba(6,20,34,0.5), 0 4px 28px ${COLORS.shadow}`,
         opacity: exit,
         transform: `translate(${shiftX}px, ${(1 - exit) * -4}px)`,
       }}

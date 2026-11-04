@@ -18,6 +18,11 @@ export const buildPages = (cfg: EditConfig, tl: Timeline): CaptionPage[] => {
   const groups: { t: string; s: number; hl?: boolean }[][] = [];
   let cur: typeof groups[number] = [];
   for (const w of cfg.words) {
+    // slow mode: never let a page run past maxChars (it would wrap to two lines) — start a new page before the word instead
+    if (minSec > 0 && cur.length > 0 && cur.map((x) => x.t).join(" ").length + 1 + w.t.length > maxChars) {
+      groups.push(cur);
+      cur = [];
+    }
     cur.push(w);
     const chars = cur.map((x) => x.t).join(" ").length;
     const last = w.t;

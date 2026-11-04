@@ -58,6 +58,8 @@ export type EditConfig = {
   caption?: { fontSize?: number; maxChars?: number; maxWords?: number; /** Minimum on-screen seconds per page (slower, more readable paging). */ minSeconds?: number; scrim?: boolean;
     /** Stronger text shadow for footage without a scrim (no gradient, no box). */
     strongShadow?: boolean;
+    /** Custom CSS text-shadow for the captions (overrides strongShadow). */
+    shadowCss?: string;
     /** Thin light outline on highlight chips (so a navy chip still reads on dark clothing). */
     chipBorder?: boolean; baseWeight?: number; hlWeight?: number; hlScale?: number };
   zoom?: { origin?: string; patterns?: [number, number][] };
