@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { AbsoluteFill, Sequence } from "remotion";
-import { CAPTION, CANVAS, COLORS, SAFE } from "../config/theme";
+import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
+import { CAPTION, COLORS, SAFE } from "../config/theme";
 import { buildPages } from "../lib/captionPages";
 import { hexToRgba, useEdit, usePalette } from "../lib/EditContext";
 import { AnimatedCaption } from "./AnimatedCaption";
@@ -9,6 +9,9 @@ import { AnimatedCaption } from "./AnimatedCaption";
 export const Captions: React.FC = () => {
   const { cfg, tl } = useEdit();
   const pal = usePalette();
+  const { width: W } = useVideoConfig();
+  const mL = cfg.layout?.captionMargin ?? SAFE.left;
+  const mR = cfg.layout?.captionMargin ?? SAFE.right;
   const pages = useMemo(() => buildPages(cfg, tl), [cfg, tl]);
   return (
     <AbsoluteFill style={{ pointerEvents: "none" }}>
@@ -27,10 +30,10 @@ export const Captions: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: SAFE.left,
-          right: SAFE.right,
+          left: mL,
+          right: mR,
           bottom: cfg.layout?.captionBottom ?? SAFE.bottom,
-          width: CANVAS.width - SAFE.left - SAFE.right,
+          width: W - mL - mR,
           height: 0,
           color: COLORS.white,
         }}

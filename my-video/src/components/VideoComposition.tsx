@@ -20,24 +20,27 @@ const Inner: React.FC = () => {
   }, [handle, continueRender]);
 
   const cta = cfg.outro?.type === "cta";
-  const outroFrom = cta ? SPEECH_FRAMES : SPEECH_FRAMES - 12; // logo veil starts in the silent tail; the CTA card starts only after the last word
+  const none = cfg.outro?.type === "none"; // keep the footage's own closing scene: no overlay, no extra frames
+  const outroFrom = cta || none ? SPEECH_FRAMES : SPEECH_FRAMES - 12; // logo veil starts in the silent tail; the CTA card starts only after the last word
   return (
     <AbsoluteFill style={{ backgroundColor: "#000" }}>
       <SpeechVideo />
       {cfg.motions.map((m) => (
         <MotionGraphic key={m.id} spec={m} />
       ))}
-      <Sequence from={0} durationInFrames={cta ? outroFrom : outroFrom + 8}>
+      <Sequence from={0} durationInFrames={none || cta ? outroFrom : outroFrom + 8}>
         <Captions />
       </Sequence>
       {cfg.sfx.map((s) => (
         <SoundEffect key={s.id} file={s.file} at={s.at} volume={s.volume} />
       ))}
-      <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
-        {cta ? <CtaOutro /> : <LogoOutro />}
-      </Sequence>
-      {cta ? (
-        <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={cfg.outro?.sfxVolume ?? 0.1} />
+      {!none && (
+        <Sequence from={outroFrom} durationInFrames={cta ? OUTRO_FRAMES : OUTRO_FRAMES + 12}>
+          {cta ? <CtaOutro /> : <LogoOutro />}
+        </Sequence>
+      )}
+      {none ? null : cta ? (
+        <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 6} volume={(cfg.outro as { sfxVolume?: number }).sfxVolume ?? 0.1} />
       ) : (
         <>
           <SoundEffect file="sfx/whoosh.wav" frame={outroFrom + 4} volume={0.28} />

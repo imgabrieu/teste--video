@@ -40,6 +40,7 @@ export const SpeechVideo: React.FC = () => {
         </Sequence>
       ))}
       {/* final frame held under the logo outro */}
+      {OUTRO_FRAMES > 0 && (
       <Sequence from={SPEECH_FRAMES} durationInFrames={OUTRO_FRAMES}>
         <AbsoluteFill style={{ transform: `scale(${patternFor(last.index, cfg.zoom?.patterns)[1]})`, transformOrigin: cfg.zoom?.origin ?? ZOOM.origin }}>
           <Freeze frame={0}>
@@ -47,6 +48,7 @@ export const SpeechVideo: React.FC = () => {
           </Freeze>
         </AbsoluteFill>
       </Sequence>
+      )}
     </AbsoluteFill>
   );
 };

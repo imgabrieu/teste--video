@@ -8,7 +8,8 @@ export const CtaOutro: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const pal = usePalette();
-  const outro = useEdit().cfg.outro;
+  const o = useEdit().cfg.outro;
+  const outro = o?.type === "cta" ? o : undefined;
   const lines = outro?.lines ?? [];
   const paragraphs = !!outro?.paragraphs;
   const bg = outro?.bg ?? pal.ink;

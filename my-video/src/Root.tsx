@@ -11,10 +11,11 @@ import { EDIT6 } from "./edits/edit6";
 import { EDIT7 } from "./edits/edit7";
 import { EDIT8 } from "./edits/edit8";
 import { EDIT9 } from "./edits/edit9";
+import { EDIT10 } from "./edits/edit10";
 import { FPS } from "./edits/types";
 import { createTimeline } from "./lib/timeline";
 
-const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4, EDIT5, EDIT6, EDIT7, EDIT8, EDIT9];
+const EDITS = [EDIT1, EDIT2, EDIT3, EDIT4, EDIT5, EDIT6, EDIT7, EDIT8, EDIT9, EDIT10];
 
 export const RemotionRoot: React.FC = () => (
   <>
@@ -26,8 +27,8 @@ export const RemotionRoot: React.FC = () => (
         defaultProps={{ edit }}
         durationInFrames={createTimeline(edit).totalFrames}
         fps={FPS}
-        width={CANVAS.width}
-        height={CANVAS.height}
+        width={edit.canvas?.width ?? CANVAS.width}
+        height={edit.canvas?.height ?? CANVAS.height}
       />
     ))}
   </>
