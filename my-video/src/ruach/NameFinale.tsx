@@ -1,7 +1,14 @@
 import React from "react";
-import { ANTON, COLORS } from "../theme";
-import { clamp01, OUT_EXPO, OUT_QUART, prog } from "../kinetic";
-import { NAME } from "./timing";
+import { ANTON, COLORS } from "./theme";
+import { clamp01, OUT_EXPO, OUT_QUART, prog } from "./kinetic";
+
+export type NameConfig = {
+  pre: string;
+  lines: [string, string];
+  size: number;
+  /** instantes (relógio do áudio) em que cada parte é pronunciada */
+  times: { pre: number; l1: number; l2: number };
+};
 
 const pulse = (t: number, at: number, dur = 0.7) => {
   const x = (t - at) / dur;
@@ -9,21 +16,22 @@ const pulse = (t: number, at: number, dur = 0.7) => {
   return Math.sin(Math.min(1, x * 6) * (Math.PI / 2)) * Math.exp(-x * 3.2);
 };
 
-const SIZE = 322;
-const base: React.CSSProperties = {
+const baseStyle = (size: number): React.CSSProperties => ({
   fontFamily: ANTON,
   fontWeight: 400,
-  fontSize: SIZE,
+  fontSize: size,
   lineHeight: 1.0,
   textTransform: "uppercase",
   letterSpacing: "0.012em",
   whiteSpace: "nowrap",
   display: "inline-block",
-};
+});
 
-/** Cena final · "PR. / MARCOS / ROZENIO" (t no relógio do áudio). */
-export const NameFinale: React.FC<{ t: number }> = ({ t }) => {
-  const { pr, marcos, rozenio } = NAME;
+/** Cena final · "PR. / NOME / SOBRENOME" (t no relógio do áudio). */
+export const NameFinale: React.FC<{ t: number; cfg: NameConfig }> = ({ t, cfg }) => {
+  const SIZE = cfg.size;
+  const base = baseStyle(SIZE);
+  const { pre: pr, l1: marcos, l2: rozenio } = cfg.times;
   if (t < pr - 0.1) return null;
 
   const pu = pulse(t, marcos, 0.9) + pulse(t, rozenio, 0.9) * 0.7;
@@ -93,18 +101,18 @@ export const NameFinale: React.FC<{ t: number }> = ({ t }) => {
               textShadow: "0 6px 40px rgba(4,9,20,0.6)",
             }}
           >
-            PR.
+            {cfg.pre}
           </div>
           <div style={{ height: 3, width: 190 * lines, background: `linear-gradient(270deg, transparent, ${COLORS.gold})`, opacity: lines }} />
         </div>
 
         {/* MARCOS / ROZENIO */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1 }}>
-          <div style={{ clipPath: "inset(-0.2em -1.4em -0.02em -1.4em)" }}>
-            <span style={{ ...base, ...slam(p1), ...fill(0) }}>MARCOS</span>
+          <div style={{ clipPath: `inset(${-0.16 * SIZE}px ${-SIZE}px ${-0.02 * SIZE}px ${-SIZE}px)` }}>
+            <span style={{ ...base, ...slam(p1), ...fill(0) }}>{cfg.lines[0]}</span>
           </div>
-          <div style={{ clipPath: "inset(-0.02em -1.4em -0.05em -1.4em)", marginTop: -SIZE * 0.06 }}>
-            <span style={{ ...base, ...slam(p2), ...fill(0.14) }}>ROZENIO</span>
+          <div style={{ clipPath: `inset(${-0.02 * SIZE}px ${-SIZE}px ${-0.05 * SIZE}px ${-SIZE}px)`, marginTop: -SIZE * 0.06 }}>
+            <span style={{ ...base, ...slam(p2), ...fill(0.14) }}>{cfg.lines[1]}</span>
           </div>
         </div>
 
