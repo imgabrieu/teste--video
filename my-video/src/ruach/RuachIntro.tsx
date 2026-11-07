@@ -1,62 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { AbsoluteFill, Audio, continueRender, delayRender, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { Background, cameraAt } from "./Background";
+import React from "react";
+import { AbsoluteFill, Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { Background, cameraAt, type Bump } from "./Background";
+import { BeatView } from "./BeatView";
 import { Finale } from "./Finale";
-import { clamp01, RowView } from "./kinetic";
-import { BEAT_EXIT, RBEATS, type RBeat } from "./schedule";
-import { FONT_FILES } from "./theme";
-import { SFX } from "./timing";
+import { RBEATS } from "./schedule";
+import { TOTAL_SECONDS } from "./theme";
+import { FINALE, SFX } from "./timing";
+import { useFonts } from "./useFonts";
 
-/** Carrega Anton + Poppins (500/600/700) empacotadas em /public — sem rede. */
-const useFonts = () => {
-  const [handle] = useState(() => delayRender("ruach-fonts"));
-  useEffect(() => {
-    Promise.all(
-      FONT_FILES.map(({ family, weight, file }) => {
-        const face = new FontFace(family, `url(${staticFile(file)}) format("woff2")`, { weight });
-        document.fonts.add(face);
-        return face.load();
-      }),
-    )
-      .then(() => continueRender(handle))
-      .catch((e) => {
-        console.error(e);
-        continueRender(handle);
-      });
-  }, [handle]);
-};
-
-const BeatView: React.FC<{ rb: RBeat; t: number }> = ({ rb, t }) => {
-  const life = rb.until - rb.firstTime;
-  const k = clamp01((t - rb.firstTime) / life);
-  const ex = clamp01((t - rb.exitAt) / BEAT_EXIT);
-  const gap = rb.beat.rowGap ?? 0;
-  return (
-    <AbsoluteFill
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-        opacity: 1 - ex,
-        // deriva lenta enquanto está em cena + saída com leve avanço e desfoque
-        transform: `translateY(${-ex * 34}px) scale(${1 + k * 0.022 + ex * 0.035})`,
-        filter: ex > 0 ? `blur(${ex * 9}px)` : undefined,
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap }}>
-        {rb.rows.map((r, i) => (
-          <RowView key={i} r={r} t={t} variant={rb.beat.variant} dir={rb.beat.dir ?? 1} />
-        ))}
-      </div>
-    </AbsoluteFill>
-  );
-};
+/** "Pushes" de câmera nas entradas importantes. */
+const BUMPS: Bump[] = [
+  ...RBEATS.map((b) => ({ at: b.firstTime - 0.06, strength: b.beat.push })),
+  { at: FINALE.carl - 0.05, strength: 0.085 },
+  { at: FINALE.morgan - 0.05, strength: 0.05 },
+  { at: FINALE.ptCarl - 0.04, strength: 0.03 },
+  { at: FINALE.ptMorgan - 0.04, strength: 0.03 },
+];
 
 export const RuachIntro: React.FC = () => {
   useFonts();
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = frame / fps;
-  const cam = cameraAt(t);
+  const cam = cameraAt(t, BUMPS, TOTAL_SECONDS);
 
   return (
     <AbsoluteFill style={{ background: "#0b1829" }}>

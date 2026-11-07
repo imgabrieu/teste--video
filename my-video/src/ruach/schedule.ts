@@ -15,15 +15,17 @@ export type RBeat = {
 const EXIT_DUR = 0.24;
 export const BEAT_EXIT = EXIT_DUR;
 
-export const RBEATS: RBeat[] = (() => {
-  const raw = BEATS.map((beat) => {
+export const buildSchedule = (beats: Beat[], lead = 0.08): RBeat[] => {
+  const raw = beats.map((beat) => {
     const rows = beat.rows.map(resolveRow);
     return { beat, rows, firstTime: Math.min(...rows.map((r) => r.firstTime)) };
   });
   return raw.map((b, i) => {
     const next = raw[i + 1];
     const lastWordEnd = Math.max(...b.rows.map((r) => r.row.win[1]));
-    const exitAt = next ? Math.min(next.firstTime - 0.08, lastWordEnd + 0.4) : lastWordEnd + 0.4;
+    const exitAt = next ? Math.min(next.firstTime - lead, lastWordEnd + 0.4) : lastWordEnd + 0.4;
     return { ...b, exitAt, until: exitAt + EXIT_DUR };
   });
-})();
+};
+
+export const RBEATS: RBeat[] = buildSchedule(BEATS);

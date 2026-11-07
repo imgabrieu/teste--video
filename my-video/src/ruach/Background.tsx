@@ -1,27 +1,19 @@
 import React, { useMemo } from "react";
 import { staticFile } from "remotion";
-import { RBEATS } from "./schedule";
-import { FINALE } from "./timing";
-import { HEIGHT, TOTAL_SECONDS, WIDTH } from "./theme";
+import { HEIGHT, WIDTH } from "./theme";
 
 /* ───────────── câmera virtual ───────────── */
 export type Cam = { scale: number; x: number; y: number; bump: number };
 
 const smooth = (x: number) => x * x * (3 - 2 * x);
 
-/** Pequenos "pushes" de câmera nas entradas importantes (decaem suavemente). */
-export const BUMPS: { at: number; strength: number }[] = [
-  ...RBEATS.map((b) => ({ at: b.firstTime - 0.06, strength: b.beat.push })),
-  { at: FINALE.carl - 0.05, strength: 0.085 },
-  { at: FINALE.morgan - 0.05, strength: 0.05 },
-  { at: FINALE.ptCarl - 0.04, strength: 0.03 },
-  { at: FINALE.ptMorgan - 0.04, strength: 0.03 },
-];
+export type Bump = { at: number; strength: number };
 
-export const cameraAt = (t: number): Cam => {
-  const k = t / TOTAL_SECONDS;
+/** Câmera virtual: zoom lento + deriva + "pushes" que decaem suavemente. */
+export const cameraAt = (t: number, bumps: Bump[], total: number): Cam => {
+  const k = Math.min(1, t / total);
   let bump = 0;
-  for (const b of BUMPS) {
+  for (const b of bumps) {
     const dt = t - b.at;
     if (dt < 0) continue;
     // sobe em ~0,16 s e decai em ~0,9 s

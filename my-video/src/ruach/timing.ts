@@ -32,12 +32,15 @@ export type Part = {
   weight?: 500 | 600 | 700;
   /** espaçamento extra entre letras (em) */
   tracking?: number;
+  /** animação própria desta parte (senão usa a do beat) */
+  variant?: Variant;
 };
 export type Line = { parts: Part[]; gap?: number };
 
 export type Row = {
   lines: Line[];
-  en: string;
+  /** tradução em inglês (opcional — vídeos só em português omitem) */
+  en?: string;
   enSize?: number;
   /** janela da fala (s) */
   win: [number, number];
@@ -57,6 +60,10 @@ export type Beat = {
   rowGap?: number;
   /** direção da entrada lateral/vertical */
   dir?: 1 | -1;
+  /** espaçamento entre palavras proporcional ao tamanho de cada palavra */
+  tight?: boolean;
+  /** pushes de câmera adicionais em instantes específicos (s) */
+  extraPush?: { at: number; strength: number }[];
 };
 
 const P = (text: string, size: number, weight: 500 | 600 | 700 = 700, tracking = 0): Part => ({

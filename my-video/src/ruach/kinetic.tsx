@@ -56,7 +56,7 @@ export const resolveRow = (row: Row): RRow => {
     start: ptStarts[i],
     end: i + 1 < flat.length ? ptStarts[i + 1] : b,
   }));
-  const enList = row.en.split(/\s+/).filter(Boolean);
+  const enList = (row.en ?? "").split(/\s+/).filter(Boolean);
   let enStarts: number[];
   if (row.spoken === "en") {
     enStarts = row.enTimes ?? distribute(enList, a, b);
@@ -76,7 +76,7 @@ export const resolveRow = (row: Row): RRow => {
     enWords,
     enSize: row.enSize ?? 50,
     row,
-    firstTime: Math.min(words[0].start, enWords[0].start),
+    firstTime: enWords.length ? Math.min(words[0].start, enWords[0].start) : words[0].start,
   };
 };
 
@@ -100,7 +100,8 @@ type KWordProps = {
 
 const LEAD = 0.06; // a animação começa um pouco antes da voz para que o "impacto" caia junto da fala
 
-export const KWord: React.FC<KWordProps> = ({ w, t, variant, spokenPt, dir }) => {
+export const KWord: React.FC<KWordProps> = ({ w, t, variant: beatVariant, spokenPt, dir }) => {
+  const variant = w.part.variant ?? beatVariant;
   const s = w.start - LEAD;
   const isAnton = w.part.font === "anton";
   const base: React.CSSProperties = {
@@ -312,23 +313,40 @@ export const EnglishLine: React.FC<{ r: RRow; t: number }> = ({ r, t }) => {
 };
 
 /* ───────────── linha de roteiro completa (PT grande + EN abaixo) ───────────── */
-export const RowView: React.FC<{ r: RRow; t: number; variant: Variant; dir: 1 | -1 }> = ({ r, t, variant, dir }) => {
+export const RowView: React.FC<{ r: RRow; t: number; variant: Variant; dir: 1 | -1; tight?: boolean }> = ({
+  r,
+  t,
+  variant,
+  dir,
+  tight,
+}) => {
   const spokenPt = r.row.spoken === "pt";
   let idx = 0;
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       {r.row.lines.map((ln, li) => {
         const items: React.ReactNode[] = [];
+        const flat: { part: Part; wi: number; pi: number; last: boolean }[] = [];
         ln.parts.forEach((p, pi) => {
-          p.text
-            .split(/\s+/)
-            .filter(Boolean)
-            .forEach((_, wi) => {
-              const w = r.words[idx++];
-              items.push(
-                <KWord key={`${pi}-${wi}`} w={w} t={t} variant={variant} spokenPt={spokenPt} dir={dir} />,
-              );
-            });
+          const n = p.text.split(/\s+/).filter(Boolean).length;
+          for (let wi = 0; wi < n; wi++) flat.push({ part: p, wi, pi, last: wi === n - 1 });
+        });
+        flat.forEach((f, k) => {
+          const w = r.words[idx++];
+          let mr = 0;
+          if (tight && k < flat.length - 1) {
+            const nx = flat[k + 1];
+            if (nx.pi === f.pi) mr = Math.round(f.part.size * (f.part.font === "anton" ? 0.2 : 0.27));
+            else {
+              const bothAnton = f.part.font === "anton" && nx.part.font === "anton";
+              mr = Math.round(Math.min(f.part.size, nx.part.size) * (bothAnton ? 0.12 : 0.3));
+            }
+          }
+          items.push(
+            <span key={k} style={{ display: "inline-flex", marginRight: tight ? mr : 0 }}>
+              <KWord w={w} t={t} variant={variant} spokenPt={spokenPt} dir={dir} />
+            </span>,
+          );
         });
         const maxSize = Math.max(...ln.parts.map((p) => p.size));
         return (
@@ -338,15 +356,20 @@ export const RowView: React.FC<{ r: RRow; t: number; variant: Variant; dir: 1 | 
               display: "flex",
               alignItems: "baseline",
               justifyContent: "center",
-              gap: `0 ${Math.round(maxSize * 0.2)}px`,
-              marginTop: li === 0 ? 0 : -Math.round(maxSize * (ln.parts[0].font === "anton" ? 0.02 : 0.1)),
+              gap: tight ? 0 : `0 ${Math.round(maxSize * 0.2)}px`,
+              marginTop:
+                li === 0
+                  ? 0
+                  : ln.parts[0].font === "anton"
+                    ? Math.round(maxSize * (tight ? 0.035 : -0.02))
+                    : -Math.round(maxSize * 0.1),
             }}
           >
             {items}
           </div>
         );
       })}
-      <EnglishLine r={r} t={t} />
+      {r.enWords.length > 0 && <EnglishLine r={r} t={t} />}
     </div>
   );
 };
