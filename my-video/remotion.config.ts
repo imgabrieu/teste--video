@@ -12,10 +12,20 @@ Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 Config.setDefaultPremountInSeconds(2);
 
-// Cloud/sandbox: use the pre-installed headless shell when present (no download needed).
-import { existsSync } from "node:fs";
-const HEADLESS = "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
-if (existsSync(HEADLESS)) Config.setBrowserExecutable(HEADLESS);
+// Cloud/sandbox: use the pre-installed headless shell when present (no download needed). The folder name carries a version, so look it up.
+import { existsSync, readdirSync } from "node:fs";
+const PW = "/opt/pw-browsers";
+const findHeadless = (): string | null => {
+  if (!existsSync(PW)) return null;
+  for (const d of readdirSync(PW).filter((n) => n.startsWith("chromium_headless_shell-"))) {
+    for (const rel of [`${d}/chrome-linux/headless_shell`, `${d}/chrome-headless-shell-linux64/chrome-headless-shell`]) {
+      if (existsSync(`${PW}/${rel}`)) return `${PW}/${rel}`;
+    }
+  }
+  return null;
+};
+const HEADLESS = findHeadless();
+if (HEADLESS) Config.setBrowserExecutable(HEADLESS);
 Config.setCodec("h264");
 Config.setCrf(14);
 Config.setPixelFormat("yuv420p");
