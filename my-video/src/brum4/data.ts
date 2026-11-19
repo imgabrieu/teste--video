@@ -12,7 +12,7 @@ export type Seg = { r?: [number, number]; words?: { t: string; s: number }[]; si
 export type Scene = { id: string; from: number; to: number; lines: Seg[][] };
 
 export const SCENES: Scene[] = [
-  { id: "s1", from: 0.0, to: 2.3, lines: [[{ r: [0, 2], size: 60, dim: true }], [{ r: [3, 5], size: 60, dim: true }], [{ r: [6, 6], size: 112 }], [{ r: [7, 7], size: 112 }]] },
+  { id: "s1", from: 0.0, to: 2.3, lines: [[{ r: [0, 2], size: 60, dim: true }], [{ r: [3, 4], size: 60, dim: true }], [{ r: [6, 6], size: 112 }], [{ r: [7, 7], size: 112 }]] },
   { id: "s2", from: 2.3, to: 4.3, lines: [[{ r: [8, 9], size: 60, dim: true }], [{ r: [10, 11], size: 84 }], [{ r: [12, 13], size: 84 }], [{ r: [14, 15], size: 112 }]] },
   { id: "s3", from: 4.32, to: 6.9, lines: [[{ r: [16, 17], size: 112 }], [{ r: [18, 19], size: 60, dim: true }], [{ r: [20, 22], size: 60, dim: true }], [{ r: [23, 23], size: 104, chip: true }]] },
   { id: "s4", from: 6.94, to: 9.7, lines: [[{ r: [24, 26], size: 60, dim: true }], [{ r: [27, 28], size: 96 }], [{ r: [29, 31], size: 80 }]] },
