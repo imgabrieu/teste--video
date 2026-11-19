@@ -9,6 +9,7 @@ import { createTimeline } from "./lib/timeline";
 import { Brum, BRUM_TOTAL } from "./brum/Brum";
 import { Brum2, BRUM2_TOTAL } from "./brum2/Brum2";
 import { Brum3, BRUM3_TOTAL } from "./brum3/Brum3";
+import { Brum4, BRUM4_TOTAL } from "./brum4/Brum4";
 
 const EDITS = [EDIT1, EDIT2];
 
@@ -29,5 +30,6 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="Brum" component={Brum} durationInFrames={BRUM_TOTAL} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="BrumLocucao" component={Brum2} durationInFrames={BRUM2_TOTAL} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
     <Composition id="BrumAnuncio" component={Brum3} durationInFrames={BRUM3_TOTAL} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
+    <Composition id="BrumVolt" component={Brum4} durationInFrames={BRUM4_TOTAL} fps={FPS} width={CANVAS.width} height={CANVAS.height} />
   </>
 );
